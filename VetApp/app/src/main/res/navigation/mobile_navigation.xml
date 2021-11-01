@@ -22,4 +22,11 @@
         android:name="com.vetapp.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_custom"
+        android:name="com.vetapp.ui.custom.CustomFragment"
+        android:label="asd"
+        tools:layout="@layout/fragment_custom" />
+
 </navigation>
