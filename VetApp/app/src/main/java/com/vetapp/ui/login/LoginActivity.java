@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
+import com.vetapp.data.login.model.LoginResult;
 import com.vetapp.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -61,18 +62,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginViewModel.getCurrentUser().observe(this, new Observer<FirebaseUser>() {
+        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
             @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if (firebaseUser == null) {
+            public void onChanged(LoginResult loginResult) {
+
+                if (loginResult == null) {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
-//                if (loginResult instanceof Result.Error) {
-//                    showLoginFailed(((Result.Error)loginResult).getError().getMessage());
-//                }
-                if (firebaseUser != null) {
-                    updateUiWithUser(firebaseUser);
+                if (!loginResult.isSuccess()) {
+                    showLoginFailed(loginResult.getErrmsg());
+                    return;
+                }else {
+                    updateUiWithUser(loginViewModel.getCurrentUser().getValue());
                 }
                 setResult(Activity.RESULT_OK);
 

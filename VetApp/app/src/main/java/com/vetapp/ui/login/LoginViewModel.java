@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.business.login.LoginHandler;
+import com.vetapp.data.login.model.LoginResult;
 
 public class LoginViewModel extends ViewModel {
 
@@ -32,5 +33,8 @@ public class LoginViewModel extends ViewModel {
         loginFormState.setValue(LoginHandler.loginDataChanged(username,password));
     }
 
+    public LiveData<LoginResult> getLoginResult(){
+        return LoginHandler.getLoginResult();
+    }
 
 }

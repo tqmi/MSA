@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.vetapp.data.login.model.LoginResult;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -22,6 +23,7 @@ public class LoginDataSource {
 
     private FirebaseAuth mAuth;
     private MutableLiveData<FirebaseUser> currentUser = new MutableLiveData<>(null);
+    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<LoginResult>(null);
 
     public LoginDataSource(){
         mAuth = FirebaseAuth.getInstance();
@@ -41,12 +43,13 @@ public class LoginDataSource {
                             Log.d(TAG, "signInUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             currentUser.setValue(user);
+                            loginResult.setValue(new LoginResult(true));
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInUserWithEmail:failure", task.getException());
+                            Log.w(TAG, "signInUserWithEmail:failure "+ task.getException().getMessage());
 //                            Toast.makeText(null, "Authentication failed.", Toast.LENGTH_SHORT).show();
-
                             currentUser.setValue(null);
+                            loginResult.setValue(new LoginResult(false,task.getException().getMessage()));
                         }
                     }
                 });
@@ -57,6 +60,11 @@ public class LoginDataSource {
             return;
         }
         mAuth.signOut();
+        loginResult.setValue(null);
         currentUser.setValue(null);
+    }
+
+    public LiveData<LoginResult> getLoginResult() {
+        return loginResult;
     }
 }

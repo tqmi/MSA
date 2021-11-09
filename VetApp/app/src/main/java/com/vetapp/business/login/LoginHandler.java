@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
 import com.vetapp.data.login.LoginDataSource;
+import com.vetapp.data.login.model.LoginResult;
 import com.vetapp.ui.login.LoginFormState;
 
 public class LoginHandler {
@@ -50,5 +51,9 @@ public class LoginHandler {
 
     public static void logout(){
         dataSource.logout();
+    }
+
+    public static LiveData<LoginResult> getLoginResult() {
+        return dataSource.getLoginResult();
     }
 }
