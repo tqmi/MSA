@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.vetapp.R;
+import com.vetapp.business.login.LoginHandler;
 import com.vetapp.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -35,6 +36,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });
+
+
+        final Button signoutButton = binding.btnSignout;
+        signoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginHandler.logout();
             }
         });
         return root;

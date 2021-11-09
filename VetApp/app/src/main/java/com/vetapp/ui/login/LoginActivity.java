@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
@@ -22,21 +21,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
-import com.vetapp.ui.login.LoginViewModel;
-import com.vetapp.ui.login.LoginViewModelFactory;
-import com.vetapp.databinding.ActivityLogin2Binding;
+import com.vetapp.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
-    private ActivityLogin2Binding binding;
+    private ActivityLoginBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityLogin2Binding.inflate(getLayoutInflater());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
@@ -63,24 +61,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
+        loginViewModel.getCurrentUser().observe(this, new Observer<FirebaseUser>() {
             @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser == null) {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
+//                if (loginResult instanceof Result.Error) {
+//                    showLoginFailed(((Result.Error)loginResult).getError().getMessage());
+//                }
+                if (firebaseUser != null) {
+                    updateUiWithUser(firebaseUser);
                 }
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
                 finish();
             }
+
         });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
@@ -124,13 +123,21 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if(loginViewModel.isLoggedIn()){
+//            this.
+//        }
+//    }
+
+    private void updateUiWithUser(FirebaseUser model) {
+        String welcome = getString(R.string.welcome) + model.getEmail();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
+    private void showLoginFailed( String errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 }
