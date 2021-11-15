@@ -6,17 +6,13 @@ import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
-import com.vetapp.data.login.LoginDataSource;
-import com.vetapp.data.login.model.LoginResult;
+import com.vetapp.data.datasource.login.LoginDataSource;
+import com.vetapp.data.models.login.LoginResult;
 import com.vetapp.ui.login.LoginFormState;
 
 public class LoginHandler {
 
     private static LoginDataSource dataSource = new LoginDataSource();
-
-    public static LiveData<FirebaseUser> getCurrentUser(){
-        return dataSource.getCurrentUser();
-    }
 
     // A placeholder username validation check
     private static boolean isUserNameValid(String username) {

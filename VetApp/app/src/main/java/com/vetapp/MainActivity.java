@@ -14,6 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.business.login.LoginHandler;
+import com.vetapp.data.models.user.User;
+import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.ActivityMainBinding;
 import com.vetapp.ui.login.LoginActivity;
 
@@ -45,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        LoginHandler.getCurrentUser().observe(this, new Observer<FirebaseUser>() {
+        UserState.getUserLive().observe(this, new Observer<User>() {
             @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if(firebaseUser == null){
+            public void onChanged(User user) {
+                if(user == null){
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     MainActivity.this.startActivity(intent);
                 }

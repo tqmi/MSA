@@ -23,7 +23,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
-import com.vetapp.data.login.model.LoginResult;
+import com.vetapp.data.models.login.LoginResult;
+import com.vetapp.data.models.user.User;
+import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -74,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(loginResult.getErrmsg());
                     return;
                 }else {
-                    updateUiWithUser(loginViewModel.getCurrentUser().getValue());
+                    updateUiWithUser(UserState.getCurrentUser());
                 }
                 setResult(Activity.RESULT_OK);
 
@@ -133,8 +135,8 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void updateUiWithUser(FirebaseUser model) {
-        String welcome = getString(R.string.welcome) + model.getEmail();
+    private void updateUiWithUser(User model) {
+        String welcome = getString(R.string.welcome) + model.getFirebaseUser().getEmail();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }

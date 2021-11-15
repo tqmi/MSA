@@ -1,4 +1,4 @@
-package com.vetapp.data.login.model;
+package com.vetapp.data.models.login;
 
 public class LoginResult {
 
