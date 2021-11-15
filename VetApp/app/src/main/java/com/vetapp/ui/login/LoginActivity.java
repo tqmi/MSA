@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ import com.vetapp.data.models.login.LoginResult;
 import com.vetapp.data.models.user.User;
 import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.ActivityLoginBinding;
+import com.vetapp.ui.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -78,10 +80,11 @@ public class LoginActivity extends AppCompatActivity {
                 }else {
                     updateUiWithUser(UserState.getCurrentUser());
                 }
-                setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+
+
             }
 
         });
