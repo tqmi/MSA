@@ -1,4 +1,4 @@
-package com.vetapp.ui.custom;
+package com.vetapp.ui.home.custom;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +13,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.vetapp.databinding.FragmentCustomBinding;
-import com.vetapp.databinding.FragmentNotificationsBinding;
-import com.vetapp.ui.notifications.NotificationsViewModel;
 
 public class CustomFragment extends Fragment {
 
