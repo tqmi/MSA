@@ -1,15 +1,16 @@
-package com.vetapp.ui.custom;
+package com.vetapp.ui.home.notifications;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CustomViewModel extends ViewModel {
+public class NotificationsViewModel extends ViewModel {
+
     private MutableLiveData<String> mText;
 
-    public CustomViewModel() {
+    public NotificationsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("custom");
+        mText.setValue("This is notifications fragment");
     }
 
     public LiveData<String> getText() {

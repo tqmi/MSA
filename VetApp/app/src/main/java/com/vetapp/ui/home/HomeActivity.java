@@ -1,4 +1,4 @@
-package com.vetapp;
+package com.vetapp.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,30 +12,22 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.auth.FirebaseUser;
-import com.vetapp.business.login.LoginHandler;
+import com.vetapp.R;
 import com.vetapp.data.models.user.User;
 import com.vetapp.data.persistent.user.UserState;
-import com.vetapp.databinding.ActivityMainBinding;
+import com.vetapp.databinding.ActivityHomeBinding;
 import com.vetapp.ui.login.LoginActivity;
 
-import java.util.Observable;
+public class HomeActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    private ActivityMainBinding binding;
+    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -50,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
         UserState.getUserLive().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                if(user == null){
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    MainActivity.this.startActivity(intent);
+                if(!UserState.isUserSignedIn()) {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
-
 
 
     }
