@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
-
+                finish();
 
             }
 
@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         if(UserState.isUserSignedIn()){
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
+            finish();
         }
 
         setContentView(binding.getRoot());
