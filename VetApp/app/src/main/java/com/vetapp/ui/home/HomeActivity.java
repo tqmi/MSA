@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         UserState.getUserLive().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                if(user == null) {
+                if(!UserState.isUserSignedIn()) {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();

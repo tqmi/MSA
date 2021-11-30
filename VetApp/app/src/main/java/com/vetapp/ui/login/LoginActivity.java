@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -39,8 +41,9 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /*Setting views*/
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
-
+        setContentView(binding.getRoot());
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
@@ -49,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
-
+        /*Handle login forms change*/
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
@@ -66,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        /*Handle login result*/
         loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
             @Override
             public void onChanged(LoginResult loginResult) {
@@ -112,9 +116,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Log.d(null,actionId + "");
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    loadingProgressBar.setVisibility(View.VISIBLE);
                     loginViewModel.login(usernameEditText.getText().toString(),
                             passwordEditText.getText().toString());
+                    return true;
                 }
                 return false;
             }
@@ -135,12 +142,11 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        setContentView(binding.getRoot());
     }
 
 
     private void updateUiWithUser(User model) {
-        String welcome = getString(R.string.welcome) + model.getFirebaseUser().getEmail();
+        String welcome = getString(R.string.welcome) + model.getEmail();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }

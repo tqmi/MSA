@@ -4,17 +4,20 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class User {
 
-    private FirebaseUser firebaseUser;
+    private final FirebaseUser firebaseUser;
 
     public User(FirebaseUser firebaseUser) {
         this.firebaseUser = firebaseUser;
     }
 
-    public FirebaseUser getFirebaseUser() {
-        return firebaseUser;
+    public boolean isSignedIn(){
+        return firebaseUser != null;
     }
 
-    public void setFirebaseUser(FirebaseUser firebaseUser) {
-        this.firebaseUser = firebaseUser;
+    public String getEmail(){
+        if(firebaseUser != null)
+            return firebaseUser.getEmail();
+        return "";
     }
+
 }
