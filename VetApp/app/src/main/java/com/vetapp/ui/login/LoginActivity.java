@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
@@ -128,15 +128,15 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+        
+        if(UserState.isUserSignedIn()){
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(intent);
+        }
+
+        setContentView(binding.getRoot());
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        if(loginViewModel.isLoggedIn()){
-//            this.
-//        }
-//    }
 
     private void updateUiWithUser(User model) {
         String welcome = getString(R.string.welcome) + model.getFirebaseUser().getEmail();

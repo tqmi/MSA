@@ -27,6 +27,7 @@ public class LoginDataSource {
 
     public LoginDataSource(){
         mAuth = FirebaseAuth.getInstance();
+        UserState.setCurrentUser(new User(mAuth.getCurrentUser()));
     }
 
     public void login(String username, String password) {
