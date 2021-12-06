@@ -27,6 +27,7 @@ public class LoginDataSource {
 
     public LoginDataSource(){
         mAuth = FirebaseAuth.getInstance();
+        UserState.setLoggedInUser(mAuth.getCurrentUser());
     }
 
     public void login(String username, String password) {
@@ -38,13 +39,13 @@ public class LoginDataSource {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            UserState.setCurrentUser(new User(user));
+                            UserState.setLoggedInUser(user);
                             loginResult.setValue(new LoginResult(true));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInUserWithEmail:failure "+ task.getException().getMessage());
 //                            Toast.makeText(null, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            UserState.setCurrentUser(null);
+                            UserState.setLoggedInUser(null);
                             loginResult.setValue(new LoginResult(false,task.getException().getMessage()));
                         }
                     }
@@ -55,9 +56,18 @@ public class LoginDataSource {
             Log.w(TAG,"User not signed in");
             return;
         }
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() == null){
+                    Log.d(null,"here");
+                    loginResult.setValue(null);
+                    UserState.setLoggedInUser(null);
+                }
+            }
+        });
+
         mAuth.signOut();
-        loginResult.setValue(null);
-        UserState.setCurrentUser(null);
     }
 
     public LiveData<LoginResult> getLoginResult() {
