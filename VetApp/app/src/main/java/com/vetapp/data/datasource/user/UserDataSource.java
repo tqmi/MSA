@@ -1,6 +1,7 @@
 package com.vetapp.data.datasource.user;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.vetapp.R;
@@ -11,9 +12,9 @@ public class UserDataSource {
 
     private static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    public static void loadUser(OnCompleteListener<DocumentSnapshot> callback){
+    public static void loadUser(FirebaseUser user, OnCompleteListener<DocumentSnapshot> callback){
 
-        firestore.collection("Users").document(UserState.getCurrentUser().getUID()).get().addOnCompleteListener(callback);
+        firestore.collection("Users").document(user.getUid()).get().addOnCompleteListener(callback);
 
     }
 

@@ -13,8 +13,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.vetapp.data.datasource.user.UserDataSource;
 import com.vetapp.data.models.login.LoginResult;
 import com.vetapp.data.models.user.User;
+import com.vetapp.data.models.user.UserData;
 import com.vetapp.data.persistent.user.UserState;
 
 /**
@@ -27,7 +30,17 @@ public class LoginDataSource {
 
     public LoginDataSource(){
         mAuth = FirebaseAuth.getInstance();
-        UserState.setLoggedInUser(mAuth.getCurrentUser());
+        if(mAuth.getCurrentUser() != null){
+
+            UserDataSource.loadUser(mAuth.getCurrentUser(), new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    UserData data = task.getResult().toObject(UserData.class);
+                    UserState.setLoggedInUser(mAuth.getCurrentUser(),data);
+                    loginResult.setValue(new LoginResult(true));
+                }
+            });
+        }
     }
 
     public void login(String username, String password) {
@@ -39,13 +52,21 @@ public class LoginDataSource {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            UserState.setLoggedInUser(user);
-                            loginResult.setValue(new LoginResult(true));
+                            UserDataSource.loadUser(user, new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                    UserData data = task.getResult().toObject(UserData.class);
+
+                                    UserState.setLoggedInUser(user,data);
+                                    loginResult.setValue(new LoginResult(true));
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInUserWithEmail:failure "+ task.getException().getMessage());
 //                            Toast.makeText(null, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            UserState.setLoggedInUser(null);
+                            UserState.setLoggedInUser(null,null);
                             loginResult.setValue(new LoginResult(false,task.getException().getMessage()));
                         }
                     }
@@ -62,7 +83,7 @@ public class LoginDataSource {
                 if(firebaseAuth.getCurrentUser() == null){
                     Log.d(null,"here");
                     loginResult.setValue(null);
-                    UserState.setLoggedInUser(null);
+                    UserState.setLoggedInUser(null,null);
                 }
             }
         });

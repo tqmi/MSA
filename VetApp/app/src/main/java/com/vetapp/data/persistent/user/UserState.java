@@ -23,7 +23,7 @@ public class UserState {
         return currentUser.getValue().isSignedIn();
     }
 
-    public static void setLoggedInUser(FirebaseUser user){
-        currentUser.setValue(new User(user,null));
+    public static void setLoggedInUser(FirebaseUser user,UserData data){
+        currentUser.setValue(new User(user,data));
     }
 }
