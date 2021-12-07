@@ -31,6 +31,7 @@ import com.vetapp.data.models.user.User;
 import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.ActivityLoginBinding;
 import com.vetapp.ui.home.HomeActivity;
+import com.vetapp.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
+        final Button registerButton = binding.register;
         final ProgressBar loadingProgressBar = binding.loading;
         /*Handle login forms change*/
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -60,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loginButton.setEnabled(loginFormState.isDataValid());
+                registerButton.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
@@ -133,6 +136,13 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
         

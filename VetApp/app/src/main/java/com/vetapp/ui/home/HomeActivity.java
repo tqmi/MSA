@@ -17,6 +17,7 @@ import com.vetapp.data.models.user.User;
 import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.ActivityHomeBinding;
 import com.vetapp.ui.login.LoginActivity;
+import com.vetapp.ui.register.RegisterActivity;
 
 public class HomeActivity extends AppCompatActivity {
 

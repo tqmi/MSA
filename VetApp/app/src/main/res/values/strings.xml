@@ -16,4 +16,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="button_signout">SIGNOUT</string>
+    <string name="userTypeText">Before you enter, what is your role?</string>
+    <string name="radioGroupVetChoice">Veterinarian</string>
+    <string name="radioGroupClientChoice">Pet owner</string>
 </resources>

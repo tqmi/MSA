@@ -3,11 +3,14 @@ package com.vetapp.ui.register;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.vetapp.R;
 import com.vetapp.databinding.ActivityLoginBinding;
 import com.vetapp.databinding.ActivityRegisterBinding;
+import com.vetapp.ui.login.LoginActivity;
 import com.vetapp.ui.login.LoginViewModel;
 import com.vetapp.ui.login.LoginViewModelFactory;
 
@@ -29,4 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+
+
 }
