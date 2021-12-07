@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.vetapp.R;
 import com.vetapp.databinding.ActivityLoginBinding;
@@ -29,6 +31,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerViewModel = new ViewModelProvider(this, new RegisterViewModelFactory())
                 .get(RegisterViewModel.class);
+
+        final EditText usernameEditText = binding.username;
+        final EditText passwordEditText = binding.password;
+        final Button registerButton = binding.register;
+
+
 
 
     }
