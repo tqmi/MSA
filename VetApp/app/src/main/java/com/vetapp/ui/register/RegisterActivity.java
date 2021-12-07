@@ -12,12 +12,15 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.vetapp.R;
 import com.vetapp.business.register.RegisterHandler;
 import com.vetapp.data.models.register.RegisterData;
 import com.vetapp.data.models.register.RegisterResult;
+import com.vetapp.data.models.user.UserType;
 import com.vetapp.databinding.ActivityLoginBinding;
 import com.vetapp.databinding.ActivityRegisterBinding;
 import com.vetapp.ui.login.LoginActivity;
@@ -43,9 +46,17 @@ public class RegisterActivity extends AppCompatActivity {
         registerViewModel = new ViewModelProvider(this, new RegisterViewModelFactory())
                 .get(RegisterViewModel.class);
 
-        final EditText usernameEditText = binding.username;
-        final EditText passwordEditText = binding.password;
+        final EditText etEmail = binding.etEmail;
+        final EditText etPassword = binding.etPassword;
+        final EditText etFirstName = binding.etFirstName;
+        final EditText etLastName = binding.etLastName;
+        final EditText etPhone = binding.etPhone;
+        final RadioGroup rgChoseType = binding.rgChoseType;
         final Button registerButton = binding.register;
+        final RadioButton rbVet = binding.rgVet;
+        final RadioButton rbClient = binding.rgClient;
+
+
 
         registerViewModel.getRegisterFormState().observe(this, new Observer<RegisterFormState>() {
             @Override
@@ -55,10 +66,10 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 registerButton.setEnabled(registerFormState.isDataValid());
                 if (registerFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(registerFormState.getUsernameError()));
+                    etEmail.setError(getString(registerFormState.getUsernameError()));
                 }
                 if (registerFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(registerFormState.getPasswordError()));
+                    etPassword.setError(getString(registerFormState.getPasswordError()));
                 }
             }
         });
@@ -93,13 +104,39 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                registerData.setEmail(usernameEditText.getText().toString());
-                registerData.setPassword(passwordEditText.getText().toString());
+                registerData.setEmail(etEmail.getText().toString());
+                registerData.setPassword(etPassword.getText().toString());
+                registerData.setFirstName(etFirstName.getText().toString());
+                registerData.setLastName(etLastName.getText().toString());
+                registerData.setPhone(etPhone.getText().toString());
                 registerViewModel.registerDataChanged(registerData);
             }
         };
-        usernameEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.addTextChangedListener(afterTextChangedListener);
+        etEmail.addTextChangedListener(afterTextChangedListener);
+        etPassword.addTextChangedListener(afterTextChangedListener);
+        etFirstName.addTextChangedListener(afterTextChangedListener);
+        etLastName.addTextChangedListener(afterTextChangedListener);
+        etPhone.addTextChangedListener(afterTextChangedListener);
+
+
+        rbClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(rbVet.isChecked()){
+                    registerData.setType(UserType.VET);
+                    registerViewModel.registerDataChanged(registerData);
+                }
+            }
+        });
+        rbVet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(rbVet.isChecked()){
+                    registerData.setType(UserType.VET);
+                    registerViewModel.registerDataChanged(registerData);
+                }
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

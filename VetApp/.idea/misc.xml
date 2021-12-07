@@ -24,7 +24,7 @@
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_login.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_login2.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_register.xml" value="0.3307291666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_register.xml" value="0.359375" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_custom.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_home.xml" value="0.5541666666666667" />
@@ -34,7 +34,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15_PREVIEW" project-jdk-name="15" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

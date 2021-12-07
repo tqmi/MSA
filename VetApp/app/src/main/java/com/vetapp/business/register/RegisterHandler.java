@@ -11,11 +11,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
 import com.vetapp.business.login.LoginHandler;
 import com.vetapp.data.datasource.register.RegisterDataSource;
+import com.vetapp.data.datasource.user.UserDataSource;
 import com.vetapp.data.models.register.RegisterData;
 import com.vetapp.data.models.register.RegisterResult;
+import com.vetapp.data.models.user.User;
+import com.vetapp.data.models.user.UserData;
 import com.vetapp.ui.login.LoginFormState;
 import com.vetapp.ui.register.RegisterFormState;
 
@@ -43,10 +47,18 @@ public class RegisterHandler {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        FirebaseAuth.getInstance().signOut();
                         // Sign in success, update UI with the signed-in user's information
                         Log.d( null,"createUserWithEmail:success");
-                        result.setValue(new RegisterResult(true));
+
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                        UserDataSource.setUser(new User(user, getUserData(data)), new OnCompleteListener() {
+                            @Override
+                            public void onComplete(@NonNull Task task) {
+                                FirebaseAuth.getInstance().signOut();
+                                result.setValue(new RegisterResult(true));
+                            }
+                        });
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(null, "createUserWithEmail:failure", task.getException());
@@ -55,6 +67,8 @@ public class RegisterHandler {
                 }
             });
     }
+
+
     public static RegisterFormState registerDataChanged(RegisterData data) {
         if (!isEmailValid(data.getEmail())) {
             return new RegisterFormState(R.string.invalid_username, null);
@@ -63,5 +77,10 @@ public class RegisterHandler {
         } else {
             return new RegisterFormState(true);
         }
+    }
+
+
+    private static UserData getUserData(RegisterData data){
+        return  new UserData(data.getEmail(), data.getFirstName(), data.getLastName(), data.getType(), data.getPhone());
     }
 }

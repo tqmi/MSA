@@ -5,10 +5,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.data.models.user.User;
+import com.vetapp.data.models.user.UserData;
 
 public class UserState {
 
-    private static MutableLiveData<User> currentUser = new MutableLiveData<>(new User(null));
+    private static MutableLiveData<User> currentUser = new MutableLiveData<>(new User(null,null));
 
     public static LiveData<User> getUserLive(){
         return currentUser;
@@ -23,6 +24,6 @@ public class UserState {
     }
 
     public static void setLoggedInUser(FirebaseUser user){
-        currentUser.setValue(new User(user));
+        currentUser.setValue(new User(user,null));
     }
 }
