@@ -11,9 +11,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.vetapp.R;
+import com.vetapp.business.login.LoginHandler;
 import com.vetapp.data.datasource.register.RegisterDataSource;
 import com.vetapp.data.models.register.RegisterData;
 import com.vetapp.data.models.register.RegisterResult;
+import com.vetapp.ui.login.LoginFormState;
+import com.vetapp.ui.register.RegisterFormState;
 
 public class RegisterHandler {
 
@@ -32,7 +36,7 @@ public class RegisterHandler {
         return password != null && password.trim().length() > 5;
     }
 
-    private static void register(RegisterData data, MutableLiveData<RegisterResult> result){
+    public static void register(RegisterData data, MutableLiveData<RegisterResult> result){
         RegisterDataSource ds = new RegisterDataSource();
         if(isEmailValid(data.getEmail()) && isPasswordValid(data.getPassword()))
             ds.register(data, new OnCompleteListener<AuthResult>() {
@@ -50,5 +54,14 @@ public class RegisterHandler {
                     }
                 }
             });
+    }
+    public static RegisterFormState registerDataChanged(RegisterData data) {
+        if (!isEmailValid(data.getEmail())) {
+            return new RegisterFormState(R.string.invalid_username, null);
+        } else if (!isPasswordValid(data.getPassword())) {
+            return new RegisterFormState(null, R.string.invalid_password);
+        } else {
+            return new RegisterFormState(true);
+        }
     }
 }
