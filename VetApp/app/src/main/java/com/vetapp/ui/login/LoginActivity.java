@@ -95,18 +95,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 updateUiWithUser(UserState.getCurrentUser());
-                PetDataSource.setChangeListenerPets(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        List<Pet> pets = value.toObjects(Pet.class);
-
-                        UserState.getCurrentUser().getData().setPets(pets);
-
-                        UserState.getCurrentUser().getData().getPets().forEach((p)->{
-                            Log.d(p.getName(),"category: "+ p.getCategory() + " race: " + p.getRace());
-                        });
-                    }
-                });
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
