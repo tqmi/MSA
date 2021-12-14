@@ -1,15 +1,21 @@
 package com.vetapp.data.models.pet;
 
+import androidx.annotation.Nullable;
+
 public class Pet {
     private String name;
     private String category;
     private String race;
+    @Nullable
     private String picture_url;
+    private String id;
+
 
     public Pet() {
     }
 
-    public Pet(String name, String category, String race, String picture_url) {
+    public Pet(String id,String name, String category, String race,@Nullable String picture_url) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.race = race;
@@ -46,5 +52,13 @@ public class Pet {
 
     public void setPicture_url(String picture_url) {
         this.picture_url = picture_url;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

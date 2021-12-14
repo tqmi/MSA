@@ -26,4 +26,10 @@ public class UserState {
     public static void setLoggedInUser(FirebaseUser user,UserData data){
         currentUser.setValue(new User(user,data));
     }
+
+    public static String getUID(){
+        if(currentUser.getValue() != null)
+            return currentUser.getValue().getUID();
+        return null;
+    }
 }
