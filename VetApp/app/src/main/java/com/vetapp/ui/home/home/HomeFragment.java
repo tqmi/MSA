@@ -1,5 +1,6 @@
 package com.vetapp.ui.home.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.vetapp.business.login.LoginHandler;
 import com.vetapp.databinding.FragmentHomeBinding;
+import com.vetapp.ui.addpet.AddPetActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -30,7 +32,15 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        Button btnAddPet = binding.btnAddPet;
 
+        btnAddPet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddPetActivity.class);
+                startActivity(intent);
+            }
+        });
 
 //        final TextView textView = binding.textHome;
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

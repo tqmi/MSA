@@ -95,14 +95,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 updateUiWithUser(UserState.getCurrentUser());
-
-                PetDataSource.writePet(new Pet("1", "citty", "cat", "British", null), new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-
-                    }
-                });
-
                 PetDataSource.setChangeListenerPets(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
