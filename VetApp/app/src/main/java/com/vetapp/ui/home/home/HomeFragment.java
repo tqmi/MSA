@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vetapp.R;
 import com.vetapp.business.login.LoginHandler;
 import com.vetapp.data.models.pet.Pet;
 import com.vetapp.databinding.FragmentHomeBinding;
@@ -35,10 +36,9 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-
+//        inflater.inflate(R.layout.fragment_home,container,false);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         Button btnAddPet = binding.btnAddPet;
         RecyclerView layout = binding.idRVPets;
 
