@@ -38,13 +38,7 @@ public class HomeFragment extends Fragment {
         });
 
 
-        final Button signoutButton = binding.btnSignout;
-        signoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginHandler.logout();
-            }
-        });
+
         return root;
     }
 
