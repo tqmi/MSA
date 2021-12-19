@@ -1,6 +1,10 @@
 package com.vetapp.data.models.pet;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.Nullable;
+
+import com.google.firebase.firestore.DocumentId;
 
 public class Pet {
     private String name;
@@ -8,14 +12,14 @@ public class Pet {
     private String race;
     @Nullable
     private String picture_url;
-    private String id;
-
+    @DocumentId
+    private String docid;
+    private Bitmap image;
 
     public Pet() {
     }
 
-    public Pet(String id,String name, String category, String race,@Nullable String picture_url) {
-        this.id = id;
+    public Pet(String name, String category, String race,@Nullable String picture_url) {
         this.name = name;
         this.category = category;
         this.race = race;
@@ -54,11 +58,20 @@ public class Pet {
         this.picture_url = picture_url;
     }
 
-    public String getId() {
-        return id;
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public String getDocid() {
+        return docid;
+    }
+
+    public void setDocid(String docid) {
+        this.docid = docid;
     }
 }

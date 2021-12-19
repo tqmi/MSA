@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -14,46 +15,68 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp">
 
         <!--Text View to display Course Name-->
 
         <TextView
             android:id="@+id/card_pet_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="false"
-            android:layout_marginTop="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@+id/card_pet_image"
+            android:gravity="center"
             android:text="Name"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/card_pet_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/card_pet_name"
-            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/card_pet_name"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@+id/card_pet_image"
+            android:gravity="center"
             android:text="Category"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/card_pet_race"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
             android:layout_below="@id/card_pet_category"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@+id/card_pet_image"
+            android:gravity="center"
             android:text="Race"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/card_pet_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            tools:srcCompat="@tools:sample/avatars" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
