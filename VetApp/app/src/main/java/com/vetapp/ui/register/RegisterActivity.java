@@ -55,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         final Button registerButton = binding.register;
         final RadioButton rbVet = binding.rgVet;
         final RadioButton rbClient = binding.rgClient;
+        final Button goBackButton = binding.registerToLogin;
 
 
 
@@ -142,6 +143,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RegisterHandler.register(registerData,registerResult);
+            }
+        });
+
+        goBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 

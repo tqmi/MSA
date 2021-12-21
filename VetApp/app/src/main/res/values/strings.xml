@@ -20,4 +20,5 @@
     <string name="radioGroupVetChoice">Veterinarian</string>
     <string name="radioGroupClientChoice">Pet owner</string>
     <string name="registerStartText">Let\'s get started</string>
+    <string name="back_register_btn">I\'ve changed my mind, go back</string>
 </resources>
