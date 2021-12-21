@@ -20,4 +20,6 @@
     <string name="radioGroupVetChoice">Veterinarian</string>
     <string name="radioGroupClientChoice">Pet owner</string>
     <string name="title_profile">Profile</string>
+    <string name="pets">Your Pets</string>
+    <string name="add_pet_btn">Add</string>
 </resources>
