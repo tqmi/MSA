@@ -46,12 +46,16 @@ public class PetDataSource {
         getUserPetImage(UserState.getUID(),pet,callback);
     }
 
-    public static void writePetImage(Pet pet, OnCompleteListener callback){
-        writeUserPetImage(UserState.getUID(),pet,callback);
+    public static void writePetImage(Uri imuri,String petId, OnCompleteListener callback){
+        writeUserPetImage(UserState.getUID(),petId,imuri,callback);
     }
 
     public static void deletePet(Pet pet){
         deleteUserPet(UserState.getUID(),pet);
+    }
+
+    public static void setPetImageTrue(String id) {
+        usersColRef.document(UserState.getUID()).collection(DBRef.PET_COL).document(id).update("hasPicture",true);
     }
 
 
@@ -84,12 +88,11 @@ public class PetDataSource {
 
     }
 
-    private static void writeUserPetImage(String userid, Pet pet, OnCompleteListener callback) {
+    private static void writeUserPetImage(String userid, String petid,Uri imuri, OnCompleteListener callback) {
         StorageReference ref = FirebaseStorage.getInstance().getReference();
-        StorageReference imref = ref.child(userid).child(pet.getDocid()).child("profile.png");
-        ByteArrayOutputStream imstream = new ByteArrayOutputStream();
-        pet.getImage().compress(Bitmap.CompressFormat.PNG,100,imstream);
-        imref.putBytes(imstream.toByteArray());
+        StorageReference imref = ref.child(userid).child(petid).child("profile.png");
+
+        imref.putFile(imuri).addOnCompleteListener(callback);
     }
 
     private static void deleteUserPet(String userid, Pet pet) {
@@ -98,6 +101,7 @@ public class PetDataSource {
         StorageReference imref = ref.child(userid).child(pet.getDocid()).child("profile.png");
         imref.delete();
     }
+
 
 
 }
