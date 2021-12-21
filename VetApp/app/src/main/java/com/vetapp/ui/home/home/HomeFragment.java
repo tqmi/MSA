@@ -31,6 +31,8 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
+    private PetAdapter adapter;
+    private List<Pet> data;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,13 +51,23 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         layout.setLayoutManager(layoutManager);
+
+        data = homeViewModel.getPets().getValue();
+
+        adapter = new PetAdapter(getContext(),data);
+        layout.setAdapter(adapter);
+
+
         homeViewModel.getPets().observe(getViewLifecycleOwner(), new Observer<List<Pet>>() {
             @Override
             public void onChanged(List<Pet> pets) {
-                PetAdapter adapter = new PetAdapter(getContext(),pets);
-                layout.setAdapter(adapter);
+                data.clear();
+                data.addAll(pets);
+                adapter.notifyDataSetChanged();
             }
         });
 

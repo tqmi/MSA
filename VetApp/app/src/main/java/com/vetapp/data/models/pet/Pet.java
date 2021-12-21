@@ -5,25 +5,25 @@ import android.graphics.Bitmap;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.IgnoreExtraProperties;
 
+@IgnoreExtraProperties
 public class Pet {
     private String name;
     private String category;
     private String race;
-    @Nullable
-    private String picture_url;
     @DocumentId
     private String docid;
-    private Bitmap image;
+    @Exclude private Bitmap image;
 
     public Pet() {
     }
 
-    public Pet(String name, String category, String race,@Nullable String picture_url) {
+    public Pet(String name, String category, String race) {
         this.name = name;
         this.category = category;
         this.race = race;
-        this.picture_url = picture_url;
     }
 
     public String getName() {
@@ -49,15 +49,6 @@ public class Pet {
     public void setRace(String race) {
         this.race = race;
     }
-
-    public String getPicture_url() {
-        return picture_url;
-    }
-
-    public void setPicture_url(String picture_url) {
-        this.picture_url = picture_url;
-    }
-
 
     public void setImage(Bitmap image) {
         this.image = image;

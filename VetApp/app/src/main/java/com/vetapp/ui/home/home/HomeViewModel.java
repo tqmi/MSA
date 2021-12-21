@@ -36,7 +36,7 @@ public class HomeViewModel extends ViewModel {
                 List<Pet> pets = value.toObjects(Pet.class);
 
                 UserState.getCurrentUser().getData().setPets(pets);
-
+                Log.d("db","called");
                 mPets.setValue(pets);
             }
         });

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,7 +59,17 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
                 }
             }
         });
+
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PetDataSource.deletePet(model);
+            }
+        });
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -68,6 +79,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
     public class Viewholder extends RecyclerView.ViewHolder {
         private TextView tvName,tvCategory,tvRace;
         private ImageView ivImage;
+        private Button btnDelete;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +87,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
             tvCategory = itemView.findViewById(R.id.card_pet_category);
             tvRace = itemView.findViewById(R.id.card_pet_race);
             ivImage = itemView.findViewById(R.id.card_pet_image);
+            btnDelete = itemView.findViewById(R.id.card_pet_delete_btn);
         }
     }
 }

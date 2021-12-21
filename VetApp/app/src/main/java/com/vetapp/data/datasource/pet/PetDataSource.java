@@ -1,5 +1,6 @@
 package com.vetapp.data.datasource.pet;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
@@ -18,6 +19,8 @@ import com.google.firebase.storage.StorageReference;
 import com.vetapp.data.datasource.DBRef;
 import com.vetapp.data.models.pet.Pet;
 import com.vetapp.data.persistent.user.UserState;
+
+import java.io.ByteArrayOutputStream;
 
 public class PetDataSource {
 
@@ -43,6 +46,13 @@ public class PetDataSource {
         getUserPetImage(UserState.getUID(),pet,callback);
     }
 
+    public static void writePetImage(Pet pet, OnCompleteListener callback){
+        writeUserPetImage(UserState.getUID(),pet,callback);
+    }
+
+    public static void deletePet(Pet pet){
+        deleteUserPet(UserState.getUID(),pet);
+    }
 
 
 
@@ -70,15 +80,24 @@ public class PetDataSource {
 
         Log.d("img :", imref.getBucket());
 
-//        imref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Uri> task) {
-//                Log.d("download uri:",task.getResult().toString());
-//            }
-//        });
-
         imref.getBytes(ONE_MEGABYTE).addOnCompleteListener(callback);
 
     }
+
+    private static void writeUserPetImage(String userid, Pet pet, OnCompleteListener callback) {
+        StorageReference ref = FirebaseStorage.getInstance().getReference();
+        StorageReference imref = ref.child(userid).child(pet.getDocid()).child("profile.png");
+        ByteArrayOutputStream imstream = new ByteArrayOutputStream();
+        pet.getImage().compress(Bitmap.CompressFormat.PNG,100,imstream);
+        imref.putBytes(imstream.toByteArray());
+    }
+
+    private static void deleteUserPet(String userid, Pet pet) {
+        usersColRef.document(userid).collection(DBRef.PET_COL).document(pet.getDocid()).delete();
+        StorageReference ref = FirebaseStorage.getInstance().getReference();
+        StorageReference imref = ref.child(userid).child(pet.getDocid()).child("profile.png");
+        imref.delete();
+    }
+
 
 }
