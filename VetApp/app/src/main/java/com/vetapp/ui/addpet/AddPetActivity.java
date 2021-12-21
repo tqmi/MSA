@@ -40,7 +40,7 @@ public class AddPetActivity extends AppCompatActivity {
     private ActivityAddPetBinding binding;
     private MutableLiveData<RegisterResult> registerResult = new MutableLiveData<>();
     private Pet petData;
-    private Uri imUri;
+    private Uri imUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +65,10 @@ public class AddPetActivity extends AppCompatActivity {
             @Override
             public void onActivityResult(Uri result) {
                 try {
-                    ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), result);
-                    imgProfile.setImageBitmap(ImageDecoder.decodeBitmap(source));
+                    if(result != null){
+                        ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), result);
+                        imgProfile.setImageBitmap(ImageDecoder.decodeBitmap(source));
+                    }
                     imUri = result;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -114,14 +116,15 @@ public class AddPetActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         DocumentReference petDocRef = (DocumentReference) task.getResult();
-                        PetDataSource.writePetImage(imUri, petDocRef.getId(), new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task) {
-                                if(task.isSuccessful()){
-                                    PetDataSource.setPetImageTrue(petDocRef.getId());
+                        if(imUri != null)
+                            PetDataSource.writePetImage(imUri, petDocRef.getId(), new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task task) {
+                                    if(task.isSuccessful()){
+                                        PetDataSource.setPetImageTrue(petDocRef.getId());
+                                    }
                                 }
-                            }
-                        });
+                            });
                         finish();
                     }
                 });

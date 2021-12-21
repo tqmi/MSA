@@ -57,6 +57,9 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
                     model.setImage(bitmap);
                     holder.ivImage.setImageBitmap(model.getImage());
                 }
+                else {
+                    holder.ivImage.setImageBitmap(null);
+                }
             }
         });
 
