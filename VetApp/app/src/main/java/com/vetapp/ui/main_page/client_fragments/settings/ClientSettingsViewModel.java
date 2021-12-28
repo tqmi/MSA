@@ -1,15 +1,15 @@
-package com.vetapp.ui.home.profile;
+package com.vetapp.ui.main_page.client_fragments.settings;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ProfileViewModel extends ViewModel {
+public class ClientSettingsViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
-    public ProfileViewModel() {
+    public ClientSettingsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("custom");
+        mText.setValue("client settings fragment");
     }
 
     public LiveData<String> getText() {

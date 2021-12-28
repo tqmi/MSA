@@ -1,4 +1,4 @@
-package com.vetapp.ui.home.notifications;
+package com.vetapp.ui.main_page.client_fragments.chat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,23 +12,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.vetapp.databinding.FragmentNotificationsBinding;
+import com.vetapp.databinding.ClientFragmentChatBinding;
 
-public class NotificationsFragment extends Fragment {
+public class ClientChatFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
-    private FragmentNotificationsBinding binding;
+    private ClientChatViewModel clientChatViewModel;
+    private ClientFragmentChatBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        clientChatViewModel =
+                new ViewModelProvider(this).get(ClientChatViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = ClientFragmentChatBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        clientChatViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

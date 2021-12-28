@@ -1,4 +1,4 @@
-package com.vetapp.ui.home.profile;
+package com.vetapp.ui.main_page.client_fragments.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,19 +14,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.vetapp.business.login.LoginHandler;
-import com.vetapp.databinding.FragmentProfileBinding;
+import com.vetapp.databinding.ClientFragmentSettingsBinding;
 
-public class ProfileFragment extends Fragment {
+public class ClientSettingsFragment extends Fragment {
 
-    private ProfileViewModel notificationsViewModel;
-    private FragmentProfileBinding binding;
+    private ClientSettingsViewModel notificationsViewModel;
+    private ClientFragmentSettingsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
+                new ViewModelProvider(this).get(ClientSettingsViewModel.class);
 
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        binding = ClientFragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textCustom;

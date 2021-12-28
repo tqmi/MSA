@@ -1,16 +1,16 @@
-package com.vetapp.ui.home.notifications;
+package com.vetapp.ui.main_page.client_fragments.vets;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class ClientVetsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public ClientVetsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("client vets fragment");
     }
 
     public LiveData<String> getText() {

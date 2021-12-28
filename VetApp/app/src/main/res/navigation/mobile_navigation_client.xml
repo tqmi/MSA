@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation_client"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/client_navigation_pets">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.vetapp.ui.home.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/client_navigation_pets"
+        android:name="com.vetapp.ui.main_page.client_fragments.pets.ClientPetsFragment"
+        android:label="@string/client_menu_pets"
+        tools:layout="@layout/vet_fragment_profile" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.vetapp.ui.home.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/client_navigation_vets"
+        android:name="com.vetapp.ui.main_page.client_fragments.vets.ClientVetsFragment"
+        android:label="@string/client_menu_vets"
+        tools:layout="@layout/vet_fragment_schedule" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.vetapp.ui.home.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/client_navigation_chat"
+        android:name="com.vetapp.ui.main_page.client_fragments.chat.ClientChatFragment"
+        android:label="@string/client_menu_chat"
+        tools:layout="@layout/vet_fragment_chat" />
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.vetapp.ui.home.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/client_navigation_settings"
+        android:name="com.vetapp.ui.main_page.client_fragments.settings.ClientSettingsFragment"
+        android:label="@string/client_menu_settings"
+        tools:layout="@layout/vet_fragment_settings" />
 
 </navigation>

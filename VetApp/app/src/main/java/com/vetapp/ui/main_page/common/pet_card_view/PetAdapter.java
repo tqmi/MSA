@@ -1,4 +1,4 @@
-package com.vetapp.ui.home.home;
+package com.vetapp.ui.main_page.common.pet_card_view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.vetapp.R;
 import com.vetapp.data.datasource.pet.PetDataSource;
 import com.vetapp.data.models.pet.Pet;

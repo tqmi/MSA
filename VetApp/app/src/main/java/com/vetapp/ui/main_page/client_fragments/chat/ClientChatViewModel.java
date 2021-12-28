@@ -1,16 +1,16 @@
-package com.vetapp.ui.home.dashboard;
+package com.vetapp.ui.main_page.client_fragments.chat;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class ClientChatViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public ClientChatViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("client chat fragment");
     }
 
     public LiveData<String> getText() {

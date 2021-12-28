@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation_vet"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/vet_navigation_profile">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.vetapp.ui.home.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/vet_navigation_profile"
+        android:name="com.vetapp.ui.main_page.vet_fragments.profile.VetProfileFragment"
+        android:label="@string/vet_menu_profile"
+        tools:layout="@layout/vet_fragment_profile" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.vetapp.ui.home.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/vet_navigation_schedule"
+        android:name="com.vetapp.ui.main_page.vet_fragments.schedule.VetScheduleFragment"
+        android:label="@string/vet_menu_schedule"
+        tools:layout="@layout/vet_fragment_schedule" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.vetapp.ui.home.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/vet_navigation_chat"
+        android:name="com.vetapp.ui.main_page.vet_fragments.chat.VetChatFragment"
+        android:label="@string/vet_menu_chat"
+        tools:layout="@layout/vet_fragment_chat" />
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.vetapp.ui.home.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/vet_navigation_settings"
+        android:name="com.vetapp.ui.main_page.vet_fragments.settings.VetSettingsFragment"
+        android:label="@string/vet_menu_settings"
+        tools:layout="@layout/vet_fragment_settings" />
 
 </navigation>
