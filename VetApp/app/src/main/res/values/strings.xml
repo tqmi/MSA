@@ -21,4 +21,7 @@
     <string name="radioGroupClientChoice">Pet owner</string>
     <string name="registerStartText">Let\'s get started</string>
     <string name="back_register_btn">I\'ve changed my mind, go back</string>
+    <string name="title_profile">Profile</string>
+    <string name="pets">Your Pets</string>
+    <string name="add_pet_btn">Add</string>
 </resources>
