@@ -21,22 +21,39 @@
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.5703125" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5703125" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.5703125" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_vector_chat.xml" value="0.440625" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_vector_home.xml" value="0.440625" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_vector_profile.xml" value="0.440625" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_vector_schedule.xml" value="0.440625" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_vector_settings.xml" value="0.440625" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/drawable/ic_vectordog_icon.xml" value="0.34791666666666665" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.26673360107095045" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout-w936dp/activity_login.xml" value="0.311328125" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout-w936dp/client_fragment_chat.xml" value="0.318359375" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout-w936dp/vet_fragment_chat.xml" value="0.318359375" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_add_pet.xml" value="0.5208333333333334" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_home.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_login.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_login2.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/activity_register.xml" value="0.359375" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/client_fragment_chat.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/client_fragment_dashboard.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/client_fragment_notifications.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/client_fragment_profile.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_custom.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_home.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_notifications.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/pet_cardview_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_chat.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_profile.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_schedule.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_settings.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/menu/bottom_nav_menu_client.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/menu/bottom_nav_menu_vet.xml" value="0.3536458333333333" />
       </map>
     </option>
   </component>

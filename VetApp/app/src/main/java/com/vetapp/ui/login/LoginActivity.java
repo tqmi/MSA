@@ -1,8 +1,5 @@
 package com.vetapp.ui.login;
 
-import android.app.Activity;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -24,23 +21,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.vetapp.R;
-import com.vetapp.data.datasource.pet.PetDataSource;
 import com.vetapp.data.models.login.LoginResult;
-import com.vetapp.data.models.pet.Pet;
 import com.vetapp.data.models.user.User;
 import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.ActivityLoginBinding;
-import com.vetapp.ui.home.HomeActivity;
+import com.vetapp.ui.main_page.HomeActivity;
 import com.vetapp.ui.register.RegisterActivity;
-
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 

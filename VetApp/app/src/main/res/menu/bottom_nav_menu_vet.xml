@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/vet_navigation_profile"
+        android:icon="@drawable/ic_vector_home"
+        android:title="@string/vet_menu_profile" />
+
+    <item
+        android:id="@+id/vet_navigation_schedule"
+        android:icon="@drawable/ic_vector_schedule"
+        android:title="@string/vet_menu_schedule" />
+
+    <item
+        android:id="@+id/vet_navigation_chat"
+        android:icon="@drawable/ic_vector_chat"
+        android:title="@string/vet_menu_chat" />
+    <item
+        android:id="@+id/vet_navigation_settings"
+        android:icon="@drawable/ic_vector_settings"
+        android:title="@string/vet_menu_settings" />
+</menu>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_vet"
+    app:startDestination="@+id/vet_navigation_profile">
+
+    <fragment
+        android:id="@+id/vet_navigation_profile"
+        android:name="com.vetapp.ui.main_page.vet_fragments.profile.VetProfileFragment"
+        android:label="@string/vet_menu_profile"
+        tools:layout="@layout/vet_fragment_profile" />
+
+    <fragment
+        android:id="@+id/vet_navigation_schedule"
+        android:name="com.vetapp.ui.main_page.vet_fragments.schedule.VetScheduleFragment"
+        android:label="@string/vet_menu_schedule"
+        tools:layout="@layout/vet_fragment_schedule" />
+
+    <fragment
+        android:id="@+id/vet_navigation_chat"
+        android:name="com.vetapp.ui.main_page.vet_fragments.chat.VetChatFragment"
+        android:label="@string/vet_menu_chat"
+        tools:layout="@layout/vet_fragment_chat" />
+
+    <fragment
+        android:id="@+id/vet_navigation_settings"
+        android:name="com.vetapp.ui.main_page.vet_fragments.settings.VetSettingsFragment"
+        android:label="@string/vet_menu_settings"
+        tools:layout="@layout/vet_fragment_settings" />
+
+</navigation>

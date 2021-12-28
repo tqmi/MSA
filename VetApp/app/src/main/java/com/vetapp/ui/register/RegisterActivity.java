@@ -123,8 +123,8 @@ public class RegisterActivity extends AppCompatActivity {
         rbClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(rbVet.isChecked()){
-                    registerData.setType(UserType.VET);
+                if(rbClient.isChecked()){
+                    registerData.setType(UserType.CLIENT);
                     registerViewModel.registerDataChanged(registerData);
                 }
             }

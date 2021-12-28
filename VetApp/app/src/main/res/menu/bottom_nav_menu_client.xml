@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/client_navigation_pets"
+        android:icon="@drawable/ic_vectordog_icon"
+        android:title="@string/client_menu_pets" />
+
+    <item
+        android:id="@+id/client_navigation_vets"
+        android:icon="@drawable/ic_vector_profile"
+        android:title="@string/client_menu_vets" />
+
+    <item
+        android:id="@+id/client_navigation_chat"
+        android:icon="@drawable/ic_vector_chat"
+        android:title="@string/client_menu_chat" />
+    <item
+        android:id="@+id/client_navigation_settings"
+        android:icon="@drawable/ic_vector_settings"
+        android:title="@string/client_menu_settings" />
+
+</menu>
