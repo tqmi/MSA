@@ -13,7 +13,7 @@ public class UserData {
     private String email;
     private String firstName;
     private String lastName;
-    private UserType type;
+    private UserType type = UserType.CLIENT;
     private String phone;
     @Exclude
     private List<Pet> pets;

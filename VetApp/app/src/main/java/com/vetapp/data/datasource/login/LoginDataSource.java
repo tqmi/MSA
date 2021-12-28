@@ -31,15 +31,22 @@ public class LoginDataSource {
     public LoginDataSource(){
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
-
-            UserDataSource.loadUser(mAuth.getCurrentUser(), new OnCompleteListener<DocumentSnapshot>() {
+            mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    UserData data = task.getResult().toObject(UserData.class);
-                    UserState.setLoggedInUser(mAuth.getCurrentUser(),data);
-                    loginResult.setValue(new LoginResult(true));
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        UserDataSource.loadUser(mAuth.getCurrentUser(), new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                UserData data = task.getResult().toObject(UserData.class);
+                                UserState.setLoggedInUser(mAuth.getCurrentUser(),data);
+                                loginResult.setValue(new LoginResult(true));
+                            }
+                        });
+                    }
                 }
             });
+
         }
     }
 
