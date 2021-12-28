@@ -54,6 +54,7 @@ public class Pet {
         this.image = image;
     }
 
+    @Exclude
     public Bitmap getImage() {
         return image;
     }
