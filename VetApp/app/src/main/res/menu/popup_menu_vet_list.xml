@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/vet_card_pm_details"
+        android:title="@string/vet_card_pm_details" />
+    <item
+        android:id="@+id/vet_card_pm_schedule_appointment"
+        android:title="@string/vet_card_pm_schedule_appointment" />
+    <item
+        android:id="@+id/vet_card_pm_chat"
+        android:title="@string/vet_card_pm_chat" />
+</menu>

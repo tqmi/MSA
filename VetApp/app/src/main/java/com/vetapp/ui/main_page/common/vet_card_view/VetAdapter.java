@@ -2,10 +2,14 @@ package com.vetapp.ui.main_page.common.vet_card_view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +42,26 @@ public class VetAdapter extends RecyclerView.Adapter<com.vetapp.ui.main_page.com
         holder.tvName.setText(model.getName());
         holder.tvClinicName.setText(model.getClinicName());
         holder.tvAddress.setText(model.getAddress());
+        holder.rlLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(context, holder.rlLayout);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.popup_menu_vet_list, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(context, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
+            }
+        });
+
 //      TODO: add image
 
 //        VetDataSource.getVetImage(model, new OnCompleteListener<byte[]>() {
@@ -68,6 +92,7 @@ public class VetAdapter extends RecyclerView.Adapter<com.vetapp.ui.main_page.com
     public class Viewholder extends RecyclerView.ViewHolder {
         private TextView tvName, tvClinicName, tvAddress;
         private ImageView ivImage;
+        private RelativeLayout rlLayout;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +100,7 @@ public class VetAdapter extends RecyclerView.Adapter<com.vetapp.ui.main_page.com
             tvClinicName = itemView.findViewById(R.id.card_vet_clinic_name);
             tvAddress = itemView.findViewById(R.id.card_vet_address);
             ivImage = itemView.findViewById(R.id.card_vet_image);
+            rlLayout = itemView.findViewById(R.id.card_vet_layout);
         }
     }
 }

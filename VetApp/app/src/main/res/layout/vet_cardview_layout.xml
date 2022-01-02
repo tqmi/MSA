@@ -13,8 +13,10 @@
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
+        android:id="@+id/card_vet_layout"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        android:clickable="true">
 
         <!--Text View to display Course Name-->
 
