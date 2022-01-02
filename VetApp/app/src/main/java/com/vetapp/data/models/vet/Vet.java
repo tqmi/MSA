@@ -1,6 +1,8 @@
 package com.vetapp.data.models.vet;
 
-public class Vet {
+import java.io.Serializable;
+
+public class Vet implements Serializable {
     private String clinicName;
     private String address;
     private String email;

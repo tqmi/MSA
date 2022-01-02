@@ -1,6 +1,7 @@
 package com.vetapp.ui.main_page.client.fragments.vets.vet_card_view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,13 +10,13 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vetapp.R;
 import com.vetapp.data.models.vet.Vet;
+import com.vetapp.ui.main_page.client.activities.vetdetails.VetDetailsActivity;
 
 import java.util.List;
 
@@ -53,7 +54,17 @@ public class VetAdapter extends RecyclerView.Adapter<com.vetapp.ui.main_page.cli
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(context, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        switch (item.getItemId()) {
+                            case R.id.vet_card_pm_details:
+                                Intent intent = new Intent(context, VetDetailsActivity.class);
+                                intent.putExtra("model", model);
+                                context.startActivity(intent);
+                                break;
+                            case R.id.vet_card_pm_schedule_appointment:
+                                break;
+                            case R.id.vet_card_pm_chat:
+                                break;
+                        }
                         return true;
                     }
                 });

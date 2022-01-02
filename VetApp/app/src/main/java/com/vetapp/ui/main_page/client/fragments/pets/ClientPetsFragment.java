@@ -30,11 +30,12 @@ public class ClientPetsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         clientPetsViewModel =
                 new ViewModelProvider(this).get(ClientPetsViewModel.class);
-//        inflater.inflate(R.layout.fragment_home,container,false);
         binding = ClientFragmentPetsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
         Button btnAddPet = binding.btnAddPet;
         RecyclerView layout = binding.idRVPets;
 
