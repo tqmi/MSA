@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vetapp.R;
 import com.vetapp.data.models.vet.Vet;
+import com.vetapp.ui.main_page.client.activities.appointment.NewAppointmentActivity;
+import com.vetapp.ui.main_page.client.activities.chat.ChatActivity;
 import com.vetapp.ui.main_page.client.activities.vetdetails.VetDetailsActivity;
 
 import java.util.List;
@@ -54,15 +56,22 @@ public class VetAdapter extends RecyclerView.Adapter<com.vetapp.ui.main_page.cli
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
+                        Intent intent;
                         switch (item.getItemId()) {
                             case R.id.vet_card_pm_details:
-                                Intent intent = new Intent(context, VetDetailsActivity.class);
+                                intent = new Intent(context, VetDetailsActivity.class);
                                 intent.putExtra("model", model);
                                 context.startActivity(intent);
                                 break;
                             case R.id.vet_card_pm_schedule_appointment:
+                                intent = new Intent(context, NewAppointmentActivity.class);
+                                intent.putExtra("model", model);
+                                context.startActivity(intent);
                                 break;
                             case R.id.vet_card_pm_chat:
+                                intent = new Intent(context, ChatActivity.class);
+                                intent.putExtra("model", model);
+                                context.startActivity(intent);
                                 break;
                         }
                         return true;
