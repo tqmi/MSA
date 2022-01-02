@@ -42,12 +42,14 @@
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/client_fragment_notifications.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/client_fragment_pets.xml" value="0.4979166666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/client_fragment_profile.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/client_fragment_vets.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_custom.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_home.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_notifications.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/pet_cardview_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_cardview_layout.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_chat.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_profile.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_schedule.xml" value="0.4244791666666667" />
@@ -59,7 +61,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15_PREVIEW" project-jdk-name="15" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
