@@ -1,8 +1,7 @@
 package com.vetapp.business.addpet;
 
-import com.vetapp.R;
 import com.vetapp.data.models.pet.Pet;
-import com.vetapp.ui.addpet.AddPetFormState;
+import com.vetapp.ui.main_page.client.activities.addpet.AddPetFormState;
 
 public class AddPetHandler {
     public static AddPetFormState dataChanged(Pet pet){

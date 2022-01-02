@@ -4,11 +4,10 @@ import android.util.Patterns;
 
 import androidx.lifecycle.LiveData;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
 import com.vetapp.data.datasource.login.LoginDataSource;
 import com.vetapp.data.models.login.LoginResult;
-import com.vetapp.ui.login.LoginFormState;
+import com.vetapp.ui.authentication.login.LoginFormState;
 
 public class LoginHandler {
 

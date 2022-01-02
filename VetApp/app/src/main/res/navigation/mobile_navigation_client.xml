@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/client_navigation_pets"
-        android:name="com.vetapp.ui.main_page.client_fragments.pets.ClientPetsFragment"
+        android:name="com.vetapp.ui.main_page.client.fragments.pets.ClientPetsFragment"
         android:label="@string/client_menu_pets"
         tools:layout="@layout/vet_fragment_profile" />
 
     <fragment
         android:id="@+id/client_navigation_vets"
-        android:name="com.vetapp.ui.main_page.client_fragments.vets.ClientVetsFragment"
+        android:name="com.vetapp.ui.main_page.client.fragments.vets.ClientVetsFragment"
         android:label="@string/client_menu_vets"
         tools:layout="@layout/vet_fragment_schedule" />
 
     <fragment
         android:id="@+id/client_navigation_chat"
-        android:name="com.vetapp.ui.main_page.client_fragments.chat.ClientChatFragment"
+        android:name="com.vetapp.ui.main_page.client.fragments.chat.ClientChatFragment"
         android:label="@string/client_menu_chat"
         tools:layout="@layout/vet_fragment_chat" />
 
     <fragment
         android:id="@+id/client_navigation_settings"
-        android:name="com.vetapp.ui.main_page.client_fragments.settings.ClientSettingsFragment"
+        android:name="com.vetapp.ui.main_page.client.fragments.settings.ClientSettingsFragment"
         android:label="@string/client_menu_settings"
         tools:layout="@layout/vet_fragment_settings" />
 

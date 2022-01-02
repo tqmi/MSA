@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main_page.client_fragments.pets.ClientPetsFragment">
+    tools:context=".ui.main_page.client.fragments.pets.ClientPetsFragment">
 
     <LinearLayout
         android:layout_width="411dp"

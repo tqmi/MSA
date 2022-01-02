@@ -2,7 +2,6 @@ package com.vetapp.business.register;
 
 import android.util.Log;
 import android.util.Patterns;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -13,15 +12,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
-import com.vetapp.business.login.LoginHandler;
 import com.vetapp.data.datasource.register.RegisterDataSource;
 import com.vetapp.data.datasource.user.UserDataSource;
 import com.vetapp.data.models.register.RegisterData;
 import com.vetapp.data.models.register.RegisterResult;
 import com.vetapp.data.models.user.User;
 import com.vetapp.data.models.user.UserData;
-import com.vetapp.ui.login.LoginFormState;
-import com.vetapp.ui.register.RegisterFormState;
+import com.vetapp.ui.authentication.register.RegisterFormState;
 
 public class RegisterHandler {
 

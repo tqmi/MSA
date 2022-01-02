@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
@@ -13,12 +11,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vetapp.R;
 import com.vetapp.data.models.user.User;
 import com.vetapp.data.models.user.UserType;
 import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.ActivityHomeBinding;
-import com.vetapp.ui.login.LoginActivity;
+import com.vetapp.ui.authentication.login.LoginActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
