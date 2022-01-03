@@ -2,6 +2,8 @@ package com.vetapp.ui.main_page.client.fragments.vets.vet_card_view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +16,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.vetapp.R;
+import com.vetapp.data.datasource.user.VetDataSource;
 import com.vetapp.data.models.vet.Vet;
 import com.vetapp.ui.main_page.client.activities.appointment.NewAppointmentActivity;
 import com.vetapp.ui.main_page.client.activities.chat.ChatActivity;
@@ -82,24 +87,21 @@ public class VetAdapter extends RecyclerView.Adapter<com.vetapp.ui.main_page.cli
             }
         });
 
-//      TODO: add image
+        VetDataSource.getVetProfilePicture(model.getDocid(), new OnCompleteListener<byte[]>() {
+            @Override
+            public void onComplete(@NonNull Task<byte[]> task) {
+                if (task.isSuccessful()) {
+                    byte[] im = task.getResult();
 
-//        VetDataSource.getVetImage(model, new OnCompleteListener<byte[]>() {
-//            @Override
-//            public void onComplete(@NonNull Task<byte[]> task) {
-//                if(task.isSuccessful()) {
-//                    byte[] im = task.getResult();
-//
-//                    Bitmap bitmap = BitmapFactory.decodeByteArray(im, 0, im.length);
-//
-//                    model.setImage(bitmap);
-//                    holder.ivImage.setImageBitmap(model.getImage());
-//                }
-//                else {
-//                    holder.ivImage.setImageBitmap(null);
-//                }
-//            }
-//        });
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(im, 0, im.length);
+
+                    model.setProfilePic(bitmap);
+                    holder.ivImage.setImageBitmap(model.getProfilePic());
+                } else {
+                    holder.ivImage.setImageBitmap(null);
+                }
+            }
+        });
 
     }
 
