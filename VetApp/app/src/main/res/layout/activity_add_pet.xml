@@ -59,13 +59,16 @@
 
     <Button
         android:id="@+id/btnAddImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Add Image"
+        android:layout_width="282dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/addpetbtn"
+        android:text="@string/add_pet_btn"
+        android:textColor="@color/white"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -78,6 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/loginwall"
+        app:srcCompat="@drawable/defaultback"
         tools:srcCompat="@tools:sample/avatars" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
