@@ -6,46 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.main_page.client_fragments.pets.ClientPetsFragment">
 
-    <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="94dp"
-        android:layout_marginEnd="411dp"
-        android:background="#6200EA"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/idRVPets">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="130dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="167dp"
-            android:layout_marginEnd="180dp"
-            android:text="@string/pets"
-            android:textColor="#8C9EFF"
-            android:textSize="24sp">
-
-        </TextView>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnAddPet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="180dp"
-        android:layout_marginBottom="404dp"
-        android:text="@string/add_pet_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idRVPets"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="107dp"
         tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/btnAddPet"
+        android:layout_width="70dp"
+        android:layout_height="72dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/roundedbutton"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="+"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
