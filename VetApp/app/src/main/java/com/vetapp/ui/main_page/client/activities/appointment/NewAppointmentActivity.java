@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.vetapp.data.models.vet.Vet;
 import com.vetapp.databinding.ClientNewAppointmentActivityBinding;
 
 public class NewAppointmentActivity extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this, new NewAppointmentViewModelFactory()).get(NewAppointmentViewModel.class);
+
+        Vet model = (Vet) getIntent().getExtras().get("model");
 
     }
 }
