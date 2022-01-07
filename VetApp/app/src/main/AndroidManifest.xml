@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VetApp">
         <activity
+            android:name=".business.util.HelperActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.main_page.client.activities.addpet.AddPetActivity"
             android:exported="false" />
         <activity
