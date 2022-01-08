@@ -2,8 +2,6 @@ package com.vetapp.data.models.pet;
 
 import android.graphics.Bitmap;
 
-import androidx.annotation.Nullable;
-
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
@@ -65,5 +63,10 @@ public class Pet {
 
     public void setDocid(String docid) {
         this.docid = docid;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
