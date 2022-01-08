@@ -55,11 +55,11 @@
         app:layout_constraintTop_toBottomOf="@+id/select_visit_type" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/submit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
-        android:text="Button"
+        android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_time_slot" />

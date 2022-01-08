@@ -1,4 +1,5 @@
 package com.vetapp.ui.main_page.client.fragments.pets;
+import static com.vetapp.business.util.LogHelper.getTag;
 
 import android.util.Log;
 
@@ -30,7 +31,7 @@ public class ClientPetsViewModel extends ViewModel {
                 List<Pet> pets = value.toObjects(Pet.class);
 
                 UserState.getCurrentUser().getData().setPets(pets);
-                Log.d("db","called");
+                Log.d(getTag(), "pet listener triggered");
                 mPets.setValue(pets);
             }
         });

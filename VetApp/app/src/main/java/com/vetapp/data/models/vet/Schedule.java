@@ -54,6 +54,10 @@ public class Schedule {
             return start.toString();
         }
 
+        public int compare(TimeSlot o2) {
+            return start.compare(o2.getStart());
+        }
+
         public enum TimeSlotStatus {
             FREE,
             BUSY
@@ -78,6 +82,18 @@ public class Schedule {
 
         public int getMinute() {
             return minute;
+        }
+
+        public int compare(TimePoint o) {
+            if (this.hour < o.getHour())
+                return -1;
+            if (this.hour > o.getHour())
+                return 1;
+            if (this.minute < o.getMinute())
+                return -1;
+            if (this.minute > o.getMinute())
+                return 1;
+            return 0;
         }
 
         @Override

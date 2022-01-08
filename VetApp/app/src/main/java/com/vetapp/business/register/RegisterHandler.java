@@ -1,5 +1,7 @@
 package com.vetapp.business.register;
 
+import static com.vetapp.business.util.LogHelper.getTag;
+
 import android.util.Log;
 import android.util.Patterns;
 
@@ -45,7 +47,7 @@ public class RegisterHandler {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d( null,"createUserWithEmail:success");
+                        Log.d(getTag(), "createUserWithEmail:success");
 
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -58,8 +60,8 @@ public class RegisterHandler {
                         });
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(null, "createUserWithEmail:failure", task.getException());
-                        result.setValue(new RegisterResult(false,task.getException().getMessage()));
+                        Log.w(getTag(), "createUserWithEmail:failure", task.getException());
+                        result.setValue(new RegisterResult(false, task.getException().getMessage()));
                     }
                 }
             });

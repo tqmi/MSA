@@ -1,15 +1,9 @@
 package com.vetapp.data.datasource.pet;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,8 +13,6 @@ import com.google.firebase.storage.StorageReference;
 import com.vetapp.data.datasource.DBRef;
 import com.vetapp.data.models.pet.Pet;
 import com.vetapp.data.persistent.user.UserState;
-
-import java.io.ByteArrayOutputStream;
 
 public class PetDataSource {
 
@@ -81,8 +73,6 @@ public class PetDataSource {
 
         StorageReference ref = FirebaseStorage.getInstance().getReference();
         StorageReference imref = ref.child(userid).child(pet.getDocid()).child("profile.png");
-
-        Log.d("img :", imref.getBucket());
 
         imref.getBytes(ONE_MEGABYTE).addOnCompleteListener(callback);
 

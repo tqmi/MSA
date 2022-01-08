@@ -1,6 +1,6 @@
 package com.vetapp.data.datasource.login;
 
-import static android.content.ContentValues.TAG;
+import static com.vetapp.business.util.LogHelper.getTag;
 
 import android.util.Log;
 
@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.vetapp.data.datasource.user.UserDataSource;
 import com.vetapp.data.models.login.LoginResult;
-import com.vetapp.data.models.user.User;
 import com.vetapp.data.models.user.UserData;
 import com.vetapp.data.persistent.user.UserState;
 
@@ -57,7 +56,7 @@ public class LoginDataSource {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInUserWithEmail:success");
+                            Log.d(getTag(), "signInUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserDataSource.loadUser(user, new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -71,7 +70,7 @@ public class LoginDataSource {
                             });
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInUserWithEmail:failure "+ task.getException().getMessage());
+                            Log.w(getTag(), "signInUserWithEmail:failure " + task.getException().getMessage());
 //                            Toast.makeText(null, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             UserState.setLoggedInUser(null,null);
                             loginResult.setValue(new LoginResult(false,task.getException().getMessage()));
@@ -81,14 +80,14 @@ public class LoginDataSource {
     }
     public void logout(){
         if(!UserState.isUserSignedIn()){
-            Log.w(TAG,"User not signed in");
+            Log.w(getTag(), "User not signed in");
             return;
         }
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() == null){
-                    Log.d(null,"here");
+                    Log.d(getTag(), "here");
                     loginResult.setValue(null);
                     UserState.setLoggedInUser(null,null);
                 }

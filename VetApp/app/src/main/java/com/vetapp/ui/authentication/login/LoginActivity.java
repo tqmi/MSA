@@ -1,5 +1,7 @@
 package com.vetapp.ui.authentication.login;
 
+import static com.vetapp.business.util.LogHelper.getTag;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -112,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                Log.d(null,actionId + "");
+                Log.d(getTag(), actionId + "");
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
                     loginViewModel.login(usernameEditText.getText().toString(),

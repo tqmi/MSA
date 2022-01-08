@@ -4,19 +4,19 @@ import static com.vetapp.business.util.LogHelper.getTag;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.vetapp.data.datasource.user.VetDataSource;
 import com.vetapp.data.models.vet.Schedule;
 import com.vetapp.data.models.vet.Vet;
@@ -24,7 +24,10 @@ import com.vetapp.databinding.ClientNewAppointmentActivityBinding;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class NewAppointmentActivity extends AppCompatActivity {
 
@@ -43,65 +46,89 @@ public class NewAppointmentActivity extends AppCompatActivity {
         Spinner selectVisitType = binding.selectVisitType;
         Spinner selectTimeSlot = binding.selectTimeSlot;
         TextView selectDate = binding.editTextDate;
-
-        List<Schedule.TimeSlot> timeSlots = new ArrayList<>();
-
-        SpinnerAdapter adapter = new ArrayAdapter<Schedule.TimeSlot>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, timeSlots);
-        selectTimeSlot.setAdapter(adapter);
+        Button submitBtn = binding.submitBtn;
 
         viewModel = new ViewModelProvider(this, new NewAppointmentViewModelFactory()).get(NewAppointmentViewModel.class);
 
         Vet model = (Vet) getIntent().getExtras().get("model");
 
-        VetDataSource.getVetShedule(Calendar.getInstance(), model, new OnCompleteListener<DocumentSnapshot>() {
+        setupSelectPetSpinner(selectPet);
+        setupSelectVisitTypeSpinner(selectVisitType);
+        setupSelectTimeSlotSpinner(selectTimeSlot, model);
+
+        submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    Log.d(getTag(), "db read successful");
-                    Schedule sc = task.getResult().toObject(Schedule.class);
-                    if (sc != null) {
-                        Log.d(getTag(), "got schedule successfully" + sc);
+            public void onClick(View v) {
+//                Schedule.TimeSlot oldts = timeSlots.get(0);
+//                Schedule.TimeSlot newts = new Schedule.TimeSlot(oldts.getStart(), Schedule.TimeSlot.TimeSlotStatus.BUSY);
+//
+//                VetDataSource.updateScheduleTimeSlot(Calendar.getInstance(), model, oldts, newts, new OnCompleteListener() {
+//                    @Override
+//                    public void onComplete(@NonNull Task task) {
+//
+//                    }
+//                });
 
-                        timeSlots.clear();
-                        timeSlots.addAll(sc.getTimeSlots());
-
-
-                    } else {
-                        Log.d(getTag(), "schedule not found");
-                        VetDataSource.createScheduleFromTemplate(Calendar.getInstance(), model, new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task) {
-                                VetDataSource.getVetShedule(Calendar.getInstance(), model, new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            Log.d(getTag(), "db read successful");
-                                            Schedule sc = task.getResult().toObject(Schedule.class);
-                                            if (sc != null) {
-                                                Log.d(getTag(), "got schedule successfully" + sc);
-
-                                                timeSlots.clear();
-                                                timeSlots.addAll(sc.getTimeSlots());
-
-
-                                            } else {
-                                                Log.d(getTag(), "schedule not found");
-
-                                            }
-                                        } else {
-                                            Log.d(getTag(), "db read failed");
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    }
-                } else {
-                    Log.d(getTag(), "db read failed");
-                }
             }
         });
+
+
+    }
+
+    private void setupSelectTimeSlotSpinner(Spinner selectTimeSlot, Vet model) {
+        List<Schedule.TimeSlot> timeSlots = new ArrayList<>();
+
+        ArrayAdapter adapter = new ArrayAdapter<Schedule.TimeSlot>(getApplicationContext(),
+                android.R.layout.simple_spinner_item, timeSlots);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectTimeSlot.setAdapter(adapter);
+
+        VetDataSource.setChangeListenerSchedule(Calendar.getInstance(), model, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.d(getTag(), "Error occured on schdule listener: " + error.getMessage());
+                    return;
+                }
+
+                Schedule sc = value.toObject(Schedule.class);
+                if (sc != null) {
+                    Log.d(getTag(), "got schedule successfully" + sc);
+
+                    List<Schedule.TimeSlot> availableTimeSlots = sc.getTimeSlots().stream().filter(new Predicate<Schedule.TimeSlot>() {
+                        @Override
+                        public boolean test(Schedule.TimeSlot timeSlot) {
+                            if (timeSlot.getStatus() == Schedule.TimeSlot.TimeSlotStatus.FREE)
+                                return true;
+                            return false;
+                        }
+                    }).sorted(new Comparator<Schedule.TimeSlot>() {
+                        @Override
+                        public int compare(Schedule.TimeSlot o1, Schedule.TimeSlot o2) {
+                            return o1.compare(o2);
+                        }
+                    }).collect(Collectors.toList());
+
+
+                    timeSlots.clear();
+                    timeSlots.addAll(availableTimeSlots);
+                    adapter.notifyDataSetChanged();
+
+                } else {
+                    Log.d(getTag(), "schedule not found");
+                    VetDataSource.createScheduleFromTemplate(Calendar.getInstance(), model, null);
+                }
+
+            }
+        });
+
+    }
+
+    private void setupSelectVisitTypeSpinner(Spinner selectVisitType) {
+
+    }
+
+    private void setupSelectPetSpinner(Spinner selectPet) {
 
     }
 }

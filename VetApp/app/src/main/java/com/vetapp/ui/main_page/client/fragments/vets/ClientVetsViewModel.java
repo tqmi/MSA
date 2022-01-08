@@ -1,5 +1,7 @@
 package com.vetapp.ui.main_page.client.fragments.vets;
 
+import static com.vetapp.business.util.LogHelper.getTag;
+
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -27,7 +29,7 @@ public class ClientVetsViewModel extends ViewModel {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 List<Vet> vets = value.toObjects(Vet.class);
 
-                Log.d("db", "called");
+                Log.d(getTag(), "called");
                 mVets.setValue(vets);
             }
         });
