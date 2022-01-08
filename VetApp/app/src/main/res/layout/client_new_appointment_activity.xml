@@ -6,7 +6,7 @@
 
     <Spinner
         android:id="@+id/select_time_slot"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:entries="@android:array/emailAddressTypes"
@@ -18,20 +18,19 @@
 
     <Spinner
         android:id="@+id/select_pet"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:entries="@android:array/emailAddressTypes"
         android:minHeight="48dp"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/select_visit_type"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:entries="@android:array/emailAddressTypes"

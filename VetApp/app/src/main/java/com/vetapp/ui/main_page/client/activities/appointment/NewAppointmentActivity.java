@@ -4,23 +4,32 @@ import static com.vetapp.business.util.LogHelper.getTag;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.vetapp.data.datasource.user.VetDataSource;
+import com.vetapp.data.models.appointment.Appointment;
 import com.vetapp.data.models.pet.Pet;
 import com.vetapp.data.models.vet.Schedule;
 import com.vetapp.data.models.vet.Vet;
@@ -42,6 +51,19 @@ public class NewAppointmentActivity extends AppCompatActivity {
     private ClientNewAppointmentActivityBinding binding;
     private NewAppointmentViewModel viewModel;
 
+    private List<Schedule.TimeSlot> timeSlots = new ArrayList<>();
+    private ArrayAdapter selectTimeSlotAdapter;
+    private ListenerRegistration selectTimeSlotListener;
+
+    private List<VisitType> visitTypes = new ArrayList<>();
+    private ArrayAdapter selectVisitTypeAdapter;
+    private ListenerRegistration selectVisitTypeListener;
+
+    private ArrayAdapter selectPetAdapter;
+
+    private Appointment appointmentdata;
+
+    private Spinner selectTimeSlot;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,10 +74,10 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
         Spinner selectPet = binding.selectPet;
         Spinner selectVisitType = binding.selectVisitType;
-        Spinner selectTimeSlot = binding.selectTimeSlot;
+        selectTimeSlot = binding.selectTimeSlot;
         EditText selectDate = binding.editTextDate;
         Button submitBtn = binding.submitBtn;
-        selectVisitType.setEnabled(false);
+        selectVisitType.setEnabled(true);
         selectTimeSlot.setEnabled(false);
         selectDate.setEnabled(true);
         submitBtn.setEnabled(false);
@@ -66,12 +88,90 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
         setupSelectPetSpinner(selectPet);
         setupSelectVisitTypeSpinner(selectVisitType, model);
-        setupSelectTimeSlotSpinner(selectTimeSlot, model);
+        setupSelectTimeSlotSpinner(selectTimeSlot);
         setupselectDatePicker(selectDate);
+
+
+        appointmentdata = new Appointment((Pet) selectPet.getSelectedItem(), (VisitType) selectVisitType.getSelectedItem(), null, null);
+
+        selectPet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                appointmentdata.setPet(UserState.getCurrentUser().getData().getPets().get(position));
+                Log.d(getTag(), "appointmentData : " + appointmentdata);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                appointmentdata.setPet(null);
+            }
+        });
+
+        selectVisitType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                appointmentdata.setVisitType(visitTypes.get(position));
+                Log.d(getTag(), "appointmentData : " + appointmentdata);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                appointmentdata.setVisitType(null);
+            }
+        });
+
+        selectTimeSlot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                appointmentdata.setTimeSlot(timeSlots.get(position));
+                Log.d(getTag(), "appointmentData : " + appointmentdata);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                appointmentdata.setTimeSlot(null);
+            }
+        });
+
+        selectDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(appointmentdata.getDate().toDate());
+                addSelectTimeSlotListener(cal, model);
+                selectTimeSlot.setEnabled(true);
+                submitBtn.setEnabled(true);
+            }
+        });
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                appointmentdata.setPet((Pet) selectPet.getSelectedItem());
+                appointmentdata.setVisitType((VisitType) selectVisitType.getSelectedItem());
+                appointmentdata.setTimeSlot((Schedule.TimeSlot) selectTimeSlot.getSelectedItem());
+
+                Schedule.TimeSlot nTimeslot = new Schedule.TimeSlot(appointmentdata.getTimeSlot().getStart(), Schedule.TimeSlot.TimeSlotStatus.BUSY, appointmentdata);
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(appointmentdata.getDate().toDate());
+                VetDataSource.updateScheduleTimeSlot(cal, model, appointmentdata.getTimeSlot(), nTimeslot, new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        finish();
+                    }
+                });
 
             }
         });
@@ -89,8 +189,9 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, month);
                 myCalendar.set(Calendar.DAY_OF_MONTH, day);
-                String myFormat = "MM/dd/yy";
+                String myFormat = "dd/MM/yy";
                 SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
+                appointmentdata.setDate(new Timestamp(myCalendar.getTime()));
                 selectDate.setText(dateFormat.format(myCalendar.getTime()));
             }
         };
@@ -102,15 +203,22 @@ public class NewAppointmentActivity extends AppCompatActivity {
         });
     }
 
-    private void setupSelectTimeSlotSpinner(Spinner selectTimeSlot, Vet model) {
-        List<Schedule.TimeSlot> timeSlots = new ArrayList<>();
+    private void setupSelectTimeSlotSpinner(Spinner selectTimeSlot) {
 
-        ArrayAdapter adapter = new ArrayAdapter<Schedule.TimeSlot>(getApplicationContext(),
+        selectTimeSlotAdapter = new ArrayAdapter<Schedule.TimeSlot>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, timeSlots);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectTimeSlot.setAdapter(adapter);
+        selectTimeSlotAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectTimeSlot.setAdapter(selectTimeSlotAdapter);
 
-        VetDataSource.setChangeListenerSchedule(Calendar.getInstance(), model, new EventListener<DocumentSnapshot>() {
+
+    }
+
+    private void addSelectTimeSlotListener(Calendar date, Vet vet) {
+
+        if (selectTimeSlotListener != null)
+            selectTimeSlotListener.remove();
+
+        selectTimeSlotListener = VetDataSource.setChangeListenerSchedule(date, vet, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
@@ -139,27 +247,25 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
                     timeSlots.clear();
                     timeSlots.addAll(availableTimeSlots);
-                    adapter.notifyDataSetChanged();
+                    selectTimeSlotAdapter.notifyDataSetChanged();
 
                 } else {
                     Log.d(getTag(), "schedule not found");
-                    VetDataSource.createScheduleFromTemplate(Calendar.getInstance(), model, null);
+                    VetDataSource.createScheduleFromTemplate(date, vet, null);
                 }
 
             }
         });
-
     }
 
     private void setupSelectVisitTypeSpinner(Spinner selectVisitType, Vet vet) {
-        List<VisitType> visitTypes = new ArrayList<>();
 
-        ArrayAdapter adapter = new ArrayAdapter<VisitType>(getApplicationContext(),
+        selectVisitTypeAdapter = new ArrayAdapter<VisitType>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, visitTypes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectVisitType.setAdapter(adapter);
+        selectVisitTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectVisitType.setAdapter(selectVisitTypeAdapter);
 
-        VetDataSource.setChangeListenerVisitTypes(vet, new EventListener<QuerySnapshot>() {
+        selectVisitTypeListener = VetDataSource.setChangeListenerVisitTypes(vet, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
@@ -168,18 +274,16 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 }
                 visitTypes.clear();
                 visitTypes.addAll(value.toObjects(VisitType.class));
-                adapter.notifyDataSetChanged();
+                selectVisitTypeAdapter.notifyDataSetChanged();
             }
         });
     }
 
     private void setupSelectPetSpinner(Spinner selectPet) {
-        ArrayAdapter adapter = new ArrayAdapter<Pet>(getApplicationContext(),
+        selectPetAdapter = new ArrayAdapter<Pet>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, UserState.getCurrentUser().getData().getPets());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectPetAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        selectPet.setAdapter(adapter);
-
-
+        selectPet.setAdapter(selectPetAdapter);
     }
 }

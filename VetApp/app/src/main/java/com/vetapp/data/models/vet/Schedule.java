@@ -1,5 +1,7 @@
 package com.vetapp.data.models.vet;
 
+import com.vetapp.data.models.appointment.Appointment;
+
 import java.util.List;
 
 public class Schedule {
@@ -32,13 +34,19 @@ public class Schedule {
     public static class TimeSlot {
         private TimePoint start;
         private TimeSlotStatus status;
+        private Appointment appointment;
 
         public TimeSlot() {
         }
 
-        public TimeSlot(TimePoint start, TimeSlotStatus status) {
+        public TimeSlot(TimePoint start, TimeSlotStatus status, Appointment appointment) {
             this.start = start;
             this.status = status;
+            this.appointment = appointment;
+        }
+
+        public Appointment getAppointment() {
+            return appointment;
         }
 
         public TimePoint getStart() {

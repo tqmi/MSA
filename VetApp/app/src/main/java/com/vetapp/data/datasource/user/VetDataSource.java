@@ -69,7 +69,7 @@ public class VetDataSource {
 
         for (int i = startTime.getHour(); i < endTime.getHour(); i++) {
             for (int j = 0; j < 4; j++) {
-                timeSlots.add(new Schedule.TimeSlot(new Schedule.TimePoint(i, j * 15), Schedule.TimeSlot.TimeSlotStatus.FREE));
+                timeSlots.add(new Schedule.TimeSlot(new Schedule.TimePoint(i, j * 15), Schedule.TimeSlot.TimeSlotStatus.FREE, null));
             }
         }
 
