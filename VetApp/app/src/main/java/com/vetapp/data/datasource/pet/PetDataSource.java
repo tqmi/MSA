@@ -7,6 +7,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -22,8 +23,8 @@ public class PetDataSource {
     private static CollectionReference usersColRef = firestore.collection(DBRef.USER_COL);
 
     //Current user
-    public static void setChangeListenerPets(EventListener<QuerySnapshot> callback){
-        setChangeListenerUserPets(UserState.getUID(),callback);
+    public static ListenerRegistration setChangeListenerPets(EventListener<QuerySnapshot> callback) {
+        return setChangeListenerUserPets(UserState.getUID(), callback);
     }
 
     public static void loadPets(OnCompleteListener<QuerySnapshot> callback){
@@ -51,25 +52,24 @@ public class PetDataSource {
     }
 
 
-
     //Generic
-    public static void loadUserPet(String userid,String petid, OnCompleteListener<DocumentSnapshot> callback){
+    public static void loadUserPet(String userid, String petid, OnCompleteListener<DocumentSnapshot> callback) {
         usersColRef.document(userid).collection(DBRef.PET_COL).document(petid).get().addOnCompleteListener(callback);
     }
 
-    public static void loadUserPets(String userid, OnCompleteListener<QuerySnapshot> callback){
+    public static void loadUserPets(String userid, OnCompleteListener<QuerySnapshot> callback) {
         usersColRef.document(userid).collection(DBRef.PET_COL).get().addOnCompleteListener(callback);
     }
 
-    public static void setChangeListenerUserPets(String userid, EventListener<QuerySnapshot> callback){
-        usersColRef.document(userid).collection(DBRef.PET_COL).addSnapshotListener(callback);
+    public static ListenerRegistration setChangeListenerUserPets(String userid, EventListener<QuerySnapshot> callback) {
+        return usersColRef.document(userid).collection(DBRef.PET_COL).addSnapshotListener(callback);
     }
 
-    public static void writeUserPet(String userid,Pet pet, OnCompleteListener callback){
+    public static void writeUserPet(String userid, Pet pet, OnCompleteListener callback) {
         usersColRef.document(userid).collection(DBRef.PET_COL).add(pet).addOnCompleteListener(callback);
     }
 
-    public static void getUserPetImage(String userid, Pet pet, OnCompleteListener<byte[]> callback){
+    public static void getUserPetImage(String userid, Pet pet, OnCompleteListener<byte[]> callback) {
 
         StorageReference ref = FirebaseStorage.getInstance().getReference();
         StorageReference imref = ref.child(userid).child(pet.getDocid()).child("profile.png");

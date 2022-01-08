@@ -13,6 +13,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -32,8 +33,8 @@ public class VetDataSource {
     private static CollectionReference usersColRef = firestore.collection(DBRef.USER_COL);
 
 
-    public static void setChangeListenerVets(EventListener<QuerySnapshot> callback) {
-        usersColRef.whereEqualTo("type", "VET").addSnapshotListener(callback);
+    public static ListenerRegistration setChangeListenerVets(EventListener<QuerySnapshot> callback) {
+        return usersColRef.whereEqualTo("type", "VET").addSnapshotListener(callback);
     }
 
     public static void getVetProfilePicture(String vetID, OnCompleteListener<byte[]> callback) {
@@ -46,12 +47,12 @@ public class VetDataSource {
         imref.getBytes(ONE_MEGABYTE).addOnCompleteListener(callback);
     }
 
-    public static void setChangeListenerSchedule(Calendar date, Vet vet, EventListener<DocumentSnapshot> callback) {
+    public static ListenerRegistration setChangeListenerSchedule(Calendar date, Vet vet, EventListener<DocumentSnapshot> callback) {
         StringBuilder date_string = new StringBuilder();
         date_string.append(date.get(Calendar.YEAR)).append(date.get(Calendar.MONTH)).append(date.get(Calendar.DAY_OF_MONTH));
 
 
-        usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).addSnapshotListener(callback);
+        return usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).addSnapshotListener(callback);
     }
 
     public static void getVetShedule(Calendar date, Vet vet, OnCompleteListener<DocumentSnapshot> callback) {
