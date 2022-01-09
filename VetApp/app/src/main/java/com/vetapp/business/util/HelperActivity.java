@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.vetapp.R;
-import com.vetapp.data.datasource.user.VetDataSource;
 
 public class HelperActivity extends AppCompatActivity {
 
@@ -14,7 +13,7 @@ public class HelperActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_helper);
 
-        VetDataSource.addVetScheduleTemplate("tJuH5XNelEfoIANk9gywe1NJ8ks1");
+//        VetDataSource.addVetScheduleTemplate("tJuH5XNelEfoIANk9gywe1NJ8ks1");
     }
 
 }

@@ -66,7 +66,7 @@ public class VetDataSource {
         usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).get().addOnCompleteListener(callback);
     }
 
-    public static void addVetScheduleTemplate(String vetid) {
+    public static void addVetScheduleTemplate(String vetid, OnCompleteListener callback) {
         Schedule.TimePoint startTime = new Schedule.TimePoint(10, 00);
         Schedule.TimePoint endTime = new Schedule.TimePoint(20, 00);
         List<Schedule.TimeSlot> timeSlots = new ArrayList<>();
@@ -78,7 +78,7 @@ public class VetDataSource {
         }
 
         Schedule template = new Schedule(startTime, endTime, timeSlots);
-        usersColRef.document(vetid).collection(DBRef.SCHEDULE_COL).document("template").set(template);
+        usersColRef.document(vetid).collection(DBRef.SCHEDULE_COL).document("template").set(template).addOnCompleteListener(callback);
     }
 
     public static void createScheduleFromTemplate(Calendar date, Vet vet, OnCompleteListener callback) {
