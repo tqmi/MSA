@@ -6,6 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".ui.main_page.client.fragments.settings.ClientSettingsFragment">
 
+    <ImageView
+        android:id="@+id/client_avatar"
+        android:layout_width="134dp"
+        android:layout_height="157dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="70dp"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar"
+        tools:src="@tools:sample/avatars"
+        android:contentDescription="@string/profile_descr" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_client_change_avatar"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="95dp"
+        android:layout_height="26dp"
+        android:background="@color/white"
+        android:text="@string/change_avatar_btn"
+        android:textAlignment="center"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/client_avatar"
+        app:layout_constraintStart_toStartOf="@+id/client_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/client_avatar"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/client_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="First Name"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/client_avatar"
+        app:layout_constraintTop_toTopOf="@+id/client_avatar" />
+
+    <TextView
+        android:id="@+id/client_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Last Name"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/client_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/client_first_name" />
+
+    <TextView
+        android:id="@+id/client_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:text="Username"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@+id/client_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/client_last_name" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="395dp"
+        android:layout_height="147dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/settingsback"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" >
+
     <Button
         android:id="@+id/btn_signout"
         android:layout_width="wrap_content"
@@ -18,15 +92,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.52" />
 
-    <TextView
-        android:id="@+id/textCustom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CUSTOM"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

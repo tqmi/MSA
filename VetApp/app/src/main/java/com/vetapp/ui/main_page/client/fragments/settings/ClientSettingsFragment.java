@@ -29,13 +29,13 @@ public class ClientSettingsFragment extends Fragment {
         binding = ClientFragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textCustom;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        //final TextView textView = binding.textCustom;
+        //notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+         //   @Override
+            //public void onChanged(@Nullable String s) {
+            //    textView.setText(s);
+           // }
+       // });
 
         final Button signoutButton = binding.btnSignout;
         signoutButton.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.vetapp.ui.main_page.client.fragments.pets.pet_card_view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.vetapp.R;
 import com.vetapp.data.datasource.pet.PetDataSource;
 import com.vetapp.data.models.pet.Pet;
+import com.vetapp.ui.addpet.AddPetActivity;
+import com.vetapp.ui.register.RegisterActivity;
 
 import java.util.List;
 
@@ -68,6 +71,13 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
             }
         });
 
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context.getApplicationContext(), AddPetActivity.class));
+            }
+        });
+
     }
 
 
@@ -81,6 +91,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
         private TextView tvName,tvCategory,tvRace;
         private ImageView ivImage;
         private Button btnDelete;
+        private Button btnEdit;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +100,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
             tvRace = itemView.findViewById(R.id.card_pet_race);
             ivImage = itemView.findViewById(R.id.card_pet_image);
             btnDelete = itemView.findViewById(R.id.card_pet_delete_btn);
+            btnEdit = itemView.findViewById(R.id.card_pet_edit_btn);
         }
     }
 }
