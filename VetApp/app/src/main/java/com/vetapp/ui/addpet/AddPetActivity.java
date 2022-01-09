@@ -60,6 +60,7 @@ public class AddPetActivity extends AppCompatActivity {
 
         Button addImg = binding.btnAddImage;
         Button submit = binding.btnSubmit;
+        Button goBack = binding.btnGoBack;
 
         ActivityResultLauncher<String> getContentLauncher =  registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
@@ -135,6 +136,13 @@ public class AddPetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getContentLauncher.launch("image/*");
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

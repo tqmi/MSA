@@ -7,7 +7,7 @@
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/drawable/roundedbutton.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.11546184738955824" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout-w936dp/activity_login.xml" value="0.13319672131147542" />
-        <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/activity_add_pet.xml" value="0.22" />
+        <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/activity_add_pet.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/activity_home.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/activity_register.xml" value="0.3333333333333333" />
@@ -65,7 +65,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15_PREVIEW" project-jdk-name="15" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

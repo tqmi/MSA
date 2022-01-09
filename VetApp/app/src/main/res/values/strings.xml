@@ -24,6 +24,7 @@
     <string name="title_profile">Profile</string>
     <string name="pets">Your Pets</string>
     <string name="add_pet_btn">Choose an avatar for your pet</string>
+    <string name="go_back_to_pets">I have enough pets for now</string>
     
     <string name="client_menu_pets">Pets</string>
     <string name="client_menu_vets">Vets</string>
