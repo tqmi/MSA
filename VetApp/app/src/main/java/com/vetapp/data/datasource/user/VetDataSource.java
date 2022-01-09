@@ -97,11 +97,11 @@ public class VetDataSource {
         });
     }
 
-    public static void updateScheduleTimeSlot(Calendar date, Vet vet, Schedule.TimeSlot[] timeSlotOld, Schedule.TimeSlot timeSlotNew, OnCompleteListener callback) {
+    public static void updateScheduleTimeSlot(Calendar date, Vet vet, List<Schedule.TimeSlot> timeSlotOld, Schedule.TimeSlot timeSlotNew, OnCompleteListener callback) {
         StringBuilder date_string = new StringBuilder();
         date_string.append(date.get(Calendar.YEAR)).append(date.get(Calendar.MONTH)).append(date.get(Calendar.DAY_OF_MONTH));
 
-        usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).update("timeSlots", FieldValue.arrayRemove(timeSlotOld)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).update("timeSlots", FieldValue.arrayRemove(timeSlotOld.toArray())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).update("timeSlots", FieldValue.arrayUnion(timeSlotNew)).addOnCompleteListener(callback);

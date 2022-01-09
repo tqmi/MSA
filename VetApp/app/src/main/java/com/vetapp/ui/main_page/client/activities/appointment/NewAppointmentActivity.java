@@ -64,6 +64,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
     private Spinner selectTimeSlot;
 
+    private List<Schedule.TimeSlot> availableTimeSlots;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,8 +174,17 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
                 List<Schedule.TimeSlot> toDelete = new ArrayList<>();
 
+                Schedule.TimePoint startTime = appointmentdata.getTimeSlot().getStart();
+                Schedule.TimePoint endTime = appointmentdata.getTimeSlot().getStart().add(appointmentdata.getVisitType().getDuration());
 
-                VetDataSource.updateScheduleTimeSlot(cal, model, appointmentdata.getTimeSlot(), nTimeslot, new OnCompleteListener() {
+                for (int i = 0; i < availableTimeSlots.size(); i++) {
+                    Schedule.TimeSlot curr = availableTimeSlots.get(i);
+                    if (curr.getStart().compare(startTime) >= 0 && curr.getStart().compare(endTime) < 0)
+                        toDelete.add(curr);
+                }
+
+
+                VetDataSource.updateScheduleTimeSlot(cal, model, toDelete, nTimeslot, new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         finish();
@@ -237,7 +248,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 if (sc != null) {
                     Log.d(getTag(), "got schedule successfully" + sc);
 
-                    List<Schedule.TimeSlot> availableTimeSlots = sc.getTimeSlots().stream().sorted(new Comparator<Schedule.TimeSlot>() {
+                    availableTimeSlots = sc.getTimeSlots().stream().sorted(new Comparator<Schedule.TimeSlot>() {
                         @Override
                         public int compare(Schedule.TimeSlot o1, Schedule.TimeSlot o2) {
                             return o1.compare(o2);
