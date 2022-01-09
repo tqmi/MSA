@@ -6,12 +6,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.vetapp.data.datasource.DBRef;
+import com.vetapp.data.models.appointment.Appointment;
 import com.vetapp.data.models.pet.Pet;
 import com.vetapp.data.persistent.user.UserState;
 
@@ -43,16 +45,20 @@ public class PetDataSource {
         writeUserPetImage(UserState.getUID(),petId,imuri,callback);
     }
 
-    public static void deletePet(Pet pet){
-        deleteUserPet(UserState.getUID(),pet);
+    public static void deletePet(Pet pet) {
+        deleteUserPet(UserState.getUID(), pet);
     }
 
     public static void setPetImageTrue(String id) {
-        usersColRef.document(UserState.getUID()).collection(DBRef.PET_COL).document(id).update("hasPicture",true);
+        usersColRef.document(UserState.getUID()).collection(DBRef.PET_COL).document(id).update("hasPicture", true);
     }
 
 
     //Generic
+    public static void addPetAppointment(String userid, String petid, Appointment data, OnCompleteListener callback) {
+        usersColRef.document(userid).collection(DBRef.PET_COL).document(petid).update("appointments", FieldValue.arrayUnion(data)).addOnCompleteListener(callback);
+    }
+
     public static void loadUserPet(String userid, String petid, OnCompleteListener<DocumentSnapshot> callback) {
         usersColRef.document(userid).collection(DBRef.PET_COL).document(petid).get().addOnCompleteListener(callback);
     }

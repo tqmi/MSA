@@ -5,12 +5,17 @@ import android.graphics.Bitmap;
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.vetapp.data.models.appointment.Appointment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @IgnoreExtraProperties
 public class Pet {
     private String name;
     private String category;
     private String race;
+    private List<Appointment> appointments;
     @DocumentId
     private String docid;
     @Exclude private Bitmap image;
@@ -22,6 +27,15 @@ public class Pet {
         this.name = name;
         this.category = category;
         this.race = race;
+        appointments = new ArrayList<>();
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     public String getName() {
