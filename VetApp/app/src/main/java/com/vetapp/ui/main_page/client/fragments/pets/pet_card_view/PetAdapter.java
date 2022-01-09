@@ -16,12 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.vetapp.R;
 import com.vetapp.data.datasource.pet.PetDataSource;
+import com.vetapp.data.models.appointment.Appointment;
 import com.vetapp.data.models.pet.Pet;
 import com.vetapp.ui.main_page.client.activities.addpet.AddPetActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
 
@@ -43,13 +48,37 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
     @Override
     public void onBindViewHolder(@NonNull PetAdapter.Viewholder holder, int position) {
         Pet model = petList.get(position);
+        Appointment appointment = null;
+        if (model.getAppointments() != null)
+            appointment = model.getAppointments().stream().filter(new Predicate<Appointment>() {
+                @Override
+                public boolean test(Appointment appointment) {
+                    if (appointment.getDate().compareTo(Timestamp.now()) > 0)
+                        return true;
+                    return false;
+                }
+            }).sorted(new Comparator<Appointment>() {
+                @Override
+                public int compare(Appointment o1, Appointment o2) {
+                    return o1.getDate().compareTo(o2.getDate());
+                }
+            }).findFirst().get();
+
+        if (appointment != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy, hh:mm");
+            holder.tvAppTime.setText(dateFormat.format(appointment.getDate().toDate()));
+            holder.tvAppType.setText(appointment.getVisitType().getName());
+        } else {
+            holder.tvAppType.setText("No appointment");
+            holder.tvAppTime.setText("");
+        }
         holder.tvName.setText(model.getName());
         holder.tvCategory.setText(model.getCategory());
         holder.tvRace.setText(model.getRace());
         PetDataSource.getPetImage(model, new OnCompleteListener<byte[]>() {
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     byte[] im = task.getResult();
 
                     Bitmap bitmap = BitmapFactory.decodeByteArray(im, 0, im.length);
@@ -87,7 +116,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {
-        private TextView tvName,tvCategory,tvRace;
+        private TextView tvName, tvCategory, tvRace, tvAppTime, tvAppType;
         private ImageView ivImage;
         private Button btnDelete;
         private Button btnEdit;
@@ -100,6 +129,8 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
             ivImage = itemView.findViewById(R.id.card_pet_image);
             btnDelete = itemView.findViewById(R.id.card_pet_delete_btn);
             btnEdit = itemView.findViewById(R.id.card_pet_edit_btn);
+            tvAppTime = itemView.findViewById(R.id.card_pet_appointment_time);
+            tvAppType = itemView.findViewById(R.id.card_pet_appointment_type);
         }
     }
 }

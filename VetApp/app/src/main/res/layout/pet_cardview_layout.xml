@@ -25,7 +25,7 @@
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="5dp"
             android:layout_toEndOf="@+id/card_pet_image"
@@ -37,13 +37,12 @@
 
         <TextView
             android:id="@+id/card_pet_category"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_below="@+id/card_pet_name"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/card_pet_image"
             android:gravity="center"
             android:text="Category"
@@ -53,14 +52,12 @@
 
         <TextView
             android:id="@+id/card_pet_race"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_below="@id/card_pet_category"
+            android:layout_below="@id/card_pet_name"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:layout_toEndOf="@+id/card_pet_image"
             android:gravity="center"
             android:text="Race"
             android:textColor="@color/black"
@@ -104,6 +101,36 @@
             android:layout_marginBottom="5dp"
             android:enabled="true"
             android:text="Edit" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_pet_category"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/card_pet_image"
+            android:text="Next appointment:" />
+
+        <TextView
+            android:id="@+id/card_pet_appointment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/card_pet_appointment_type"
+            android:text="Ian 22, 10:15" />
+
+        <TextView
+            android:id="@+id/card_pet_appointment_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/card_pet_image"
+            android:text="Checkout" />
 
     </RelativeLayout>
 
