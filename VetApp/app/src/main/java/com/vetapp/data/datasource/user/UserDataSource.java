@@ -1,5 +1,7 @@
 package com.vetapp.data.datasource.user;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -7,6 +9,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.vetapp.data.models.user.User;
 import com.vetapp.data.models.user.UserType;
 
@@ -30,6 +34,13 @@ public class UserDataSource {
             });
         else
             firestore.collection("Users").document(user.getUID()).set(user.getData()).addOnCompleteListener(callback);
+    }
+
+    public static void setUserProfilePicture(String userid, Uri imuri, OnCompleteListener callback) {
+        StorageReference ref = FirebaseStorage.getInstance().getReference();
+        StorageReference imref = ref.child(userid).child("profile.png");
+
+        imref.putFile(imuri).addOnCompleteListener(callback);
     }
 
 
