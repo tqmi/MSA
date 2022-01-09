@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main_page.client.activities.addpet.AddPetActivity">
+    android:backgroundTintMode="add"
     android:fillViewport="false"
     android:foregroundGravity="fill"
     android:orientation="vertical"
@@ -15,8 +15,7 @@
     android:paddingRight="16dp"
     android:paddingBottom="12dp"
     android:background="@drawable/addpetback"
-    android:backgroundTintMode="add"
-    tools:context=".ui.addpet.AddPetActivity">
+    tools:context=".ui.main_page.client.activities.addpet.AddPetActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

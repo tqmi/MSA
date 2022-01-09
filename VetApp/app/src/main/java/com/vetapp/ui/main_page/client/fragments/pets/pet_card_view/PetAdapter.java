@@ -19,8 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.vetapp.R;
 import com.vetapp.data.datasource.pet.PetDataSource;
 import com.vetapp.data.models.pet.Pet;
-import com.vetapp.ui.addpet.AddPetActivity;
-import com.vetapp.ui.register.RegisterActivity;
+import com.vetapp.ui.main_page.client.activities.addpet.AddPetActivity;
 
 import java.util.List;
 
