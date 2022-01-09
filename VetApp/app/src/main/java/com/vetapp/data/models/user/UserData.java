@@ -31,9 +31,15 @@ public class UserData {
         this.phone = phone;
         this.pets = new ArrayList<>();
     }
+
     @Exclude
-    public List<Pet> getPets(){
+    public List<Pet> getPets() {
         return pets;
+    }
+
+    @Exclude
+    public String getFullName() {
+        return firstName + lastName;
     }
 
     public String getEmail() {

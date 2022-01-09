@@ -2,13 +2,15 @@ package com.vetapp.data.models.appointment;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
-import com.vetapp.data.models.pet.Pet;
 import com.vetapp.data.models.vet.Schedule;
 import com.vetapp.data.models.vet.VisitType;
 
 public class Appointment {
 
-    private Pet pet;
+    private String petName;
+    private String ownerName;
+    private String petId;
+    private String ownerId;
     private VisitType visitType;
     private Timestamp date;
     @Exclude
@@ -17,19 +19,46 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Pet pet, VisitType visitType, Timestamp date, Schedule.TimeSlot timeSlot) {
-        this.pet = pet;
+    public Appointment(String petName, String ownerName, String petId, String ownerId, VisitType visitType, Timestamp date, Schedule.TimeSlot timeSlot) {
+        this.petName = petName;
+        this.ownerName = ownerName;
+        this.petId = petId;
+        this.ownerId = ownerId;
         this.visitType = visitType;
         this.date = date;
         this.timeSlot = timeSlot;
     }
 
-    public Pet getPet() {
-        return pet;
+    public String getPetName() {
+        return petName;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPetName(String petName) {
+        this.petName = petName;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getPetId() {
+        return petId;
+    }
+
+    public void setPetId(String petId) {
+        this.petId = petId;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public VisitType getVisitType() {
@@ -61,7 +90,10 @@ public class Appointment {
     @Override
     public String toString() {
         return "Appointment{" +
-                "pet=" + pet +
+                "petName='" + petName + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", petId='" + petId + '\'' +
+                ", ownerId='" + ownerId + '\'' +
                 ", visitType=" + visitType +
                 ", date=" + date +
                 ", timeSlot=" + timeSlot +

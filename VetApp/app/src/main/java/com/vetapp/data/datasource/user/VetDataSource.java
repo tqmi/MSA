@@ -48,6 +48,10 @@ public class VetDataSource {
         return usersColRef.document(vet.getDocid()).collection(DBRef.VISITTYPE_COL).addSnapshotListener(callback);
     }
 
+    public static void getVetProfile(String vetID, OnCompleteListener<DocumentSnapshot> callback) {
+        usersColRef.document(vetID).get().addOnCompleteListener(callback);
+    }
+
     public static void getVetProfilePicture(String vetID, OnCompleteListener<byte[]> callback) {
         StorageReference ref = FirebaseStorage.getInstance().getReference();
         StorageReference imref = ref.child(vetID).child("profile.png");

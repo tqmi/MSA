@@ -91,19 +91,22 @@ public class NewAppointmentActivity extends AppCompatActivity {
         setupSelectTimeSlotSpinner(selectTimeSlot);
         setupselectDatePicker(selectDate);
 
+        Pet selectedPet = (Pet) selectPet.getSelectedItem();
 
-        appointmentdata = new Appointment((Pet) selectPet.getSelectedItem(), (VisitType) selectVisitType.getSelectedItem(), null, null);
+        appointmentdata = new Appointment(selectedPet.getName(), UserState.getCurrentUser().getData().getFullName(), selectedPet.getDocid(), UserState.getUID(), (VisitType) selectVisitType.getSelectedItem(), null, null);
 
         selectPet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                appointmentdata.setPet(UserState.getCurrentUser().getData().getPets().get(position));
+                appointmentdata.setPetName(UserState.getCurrentUser().getData().getPets().get(position).getName());
+                appointmentdata.setPetId(UserState.getCurrentUser().getData().getPets().get(position).getDocid());
                 Log.d(getTag(), "appointmentData : " + appointmentdata);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                appointmentdata.setPet(null);
+                appointmentdata.setPetName("");
+                appointmentdata.setPetId("");
             }
         });
 
@@ -158,7 +161,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                appointmentdata.setPet((Pet) selectPet.getSelectedItem());
+                appointmentdata.setPetName(((Pet) selectPet.getSelectedItem()).getName());
+                appointmentdata.setPetId(((Pet) selectPet.getSelectedItem()).getDocid());
                 appointmentdata.setVisitType((VisitType) selectVisitType.getSelectedItem());
                 appointmentdata.setTimeSlot((Schedule.TimeSlot) selectTimeSlot.getSelectedItem());
 

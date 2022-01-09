@@ -104,6 +104,21 @@ public class Schedule {
             return 0;
         }
 
+        public TimePoint add(TimePoint o) {
+            TimePoint nt = new TimePoint(this.getHour(), this.getMinute());
+            nt.minute += o.getMinute();
+            nt.hour += o.getHour();
+
+            if (nt.minute > 60) {
+                nt.hour++;
+                nt.minute -= 60;
+            }
+
+            if (nt.hour >= 24)
+                nt.hour -= 24;
+            return nt;
+        }
+
         @Override
         public String toString() {
             return hour + ":" + minute;
