@@ -97,7 +97,7 @@ public class VetDataSource {
         });
     }
 
-    public static void updateScheduleTimeSlot(Calendar date, Vet vet, Schedule.TimeSlot timeSlotOld, Schedule.TimeSlot timeSlotNew, OnCompleteListener callback) {
+    public static void updateScheduleTimeSlot(Calendar date, Vet vet, Schedule.TimeSlot[] timeSlotOld, Schedule.TimeSlot timeSlotNew, OnCompleteListener callback) {
         StringBuilder date_string = new StringBuilder();
         date_string.append(date.get(Calendar.YEAR)).append(date.get(Calendar.MONTH)).append(date.get(Calendar.DAY_OF_MONTH));
 

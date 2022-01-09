@@ -43,7 +43,6 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class NewAppointmentActivity extends AppCompatActivity {
@@ -170,6 +169,10 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(appointmentdata.getDate().toDate());
+
+                List<Schedule.TimeSlot> toDelete = new ArrayList<>();
+
+
                 VetDataSource.updateScheduleTimeSlot(cal, model, appointmentdata.getTimeSlot(), nTimeslot, new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
@@ -234,23 +237,51 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 if (sc != null) {
                     Log.d(getTag(), "got schedule successfully" + sc);
 
-                    List<Schedule.TimeSlot> availableTimeSlots = sc.getTimeSlots().stream().filter(new Predicate<Schedule.TimeSlot>() {
-                        @Override
-                        public boolean test(Schedule.TimeSlot timeSlot) {
-                            if (timeSlot.getStatus() == Schedule.TimeSlot.TimeSlotStatus.FREE)
-                                return true;
-                            return false;
-                        }
-                    }).sorted(new Comparator<Schedule.TimeSlot>() {
+                    List<Schedule.TimeSlot> availableTimeSlots = sc.getTimeSlots().stream().sorted(new Comparator<Schedule.TimeSlot>() {
                         @Override
                         public int compare(Schedule.TimeSlot o1, Schedule.TimeSlot o2) {
                             return o1.compare(o2);
                         }
                     }).collect(Collectors.toList());
+                    List<Schedule.TimeSlot> finalTimeSlots = new ArrayList<>();
+                    for (int i = 0; i < availableTimeSlots.size(); i++) {
+
+                        Schedule.TimeSlot item = availableTimeSlots.get(i);
+                        if (item.getStatus() == Schedule.TimeSlot.TimeSlotStatus.FREE) {
+                            Schedule.TimePoint start = item.getStart();
+                            Schedule.TimePoint timeToCover = item.getStart().add(appointmentdata.getVisitType().getDuration());
+                            Schedule.TimePoint increment = new Schedule.TimePoint(0, 15);
+                            boolean delete = true;
+
+                            for (int j = i + 1; j < availableTimeSlots.size(); j++) {
+                                Schedule.TimePoint curr = availableTimeSlots.get(j).getStart();
+
+                                if (start.add(increment).compare(curr) != 0)
+                                    break;
+
+
+                                if (curr.compare(timeToCover) == 0) {
+                                    delete = false;
+                                    break;
+                                } else {
+                                    if (availableTimeSlots.get(j).getStatus() != Schedule.TimeSlot.TimeSlotStatus.FREE) {
+                                        delete = true;
+                                        break;
+                                    }
+                                }
+
+                                start = curr;
+
+                            }
+
+                            if (!delete)
+                                finalTimeSlots.add(item);
+                        }
+                    }
 
 
                     timeSlots.clear();
-                    timeSlots.addAll(availableTimeSlots);
+                    timeSlots.addAll(finalTimeSlots);
                     selectTimeSlotAdapter.notifyDataSetChanged();
 
                 } else {

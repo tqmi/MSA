@@ -68,7 +68,9 @@ public class Schedule {
 
         public enum TimeSlotStatus {
             FREE,
-            BUSY
+            BUSY,
+            TRANSIENT,
+            VACATION,
         }
     }
 
@@ -109,7 +111,7 @@ public class Schedule {
             nt.minute += o.getMinute();
             nt.hour += o.getHour();
 
-            if (nt.minute > 60) {
+            if (nt.minute >= 60) {
                 nt.hour++;
                 nt.minute -= 60;
             }
