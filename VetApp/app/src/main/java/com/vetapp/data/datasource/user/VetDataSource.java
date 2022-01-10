@@ -109,5 +109,18 @@ public class VetDataSource {
         });
     }
 
+    public static void markAppointmentDone(Calendar date, Vet vet, Schedule.TimeSlot ts, OnCompleteListener callback) {
+        StringBuilder date_string = new StringBuilder();
+        date_string.append(date.get(Calendar.YEAR)).append(date.get(Calendar.MONTH)).append(date.get(Calendar.DAY_OF_MONTH));
+
+        Schedule.TimeSlot nt = new Schedule.TimeSlot(ts.getStart(), Schedule.TimeSlot.TimeSlotStatus.DONE, ts.getAppointment());
+
+        usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).update("timeSlots", FieldValue.arrayRemove(ts)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).update("timeSlots", FieldValue.arrayUnion(nt)).addOnCompleteListener(callback);
+            }
+        });
+    }
 
 }

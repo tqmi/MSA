@@ -71,6 +71,7 @@ public class Schedule {
             BUSY,
             TRANSIENT,
             VACATION,
+            DONE
         }
     }
 
@@ -83,6 +84,14 @@ public class Schedule {
 
         public TimePoint(int hour, int minute) {
             this.hour = hour;
+            this.minute = minute;
+        }
+
+        public void setHour(int hour) {
+            this.hour = hour;
+        }
+
+        public void setMinute(int minute) {
             this.minute = minute;
         }
 
@@ -123,7 +132,17 @@ public class Schedule {
 
         @Override
         public String toString() {
-            return hour + ":" + minute;
+            StringBuilder sb = new StringBuilder();
+
+            if (hour < 10)
+                sb.append("0");
+            sb.append(hour);
+            sb.append(":");
+            if (minute < 10)
+                sb.append("0");
+            sb.append(minute);
+
+            return sb.toString();
         }
     }
 

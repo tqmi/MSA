@@ -10,6 +10,8 @@
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/activity_register.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/client_fragment_pets.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/client_fragment_settings.xml" value="0.2821557971014493" />
+        <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/client_fragment_vets.xml" value="0.3671875" />
+        <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/client_new_appointment_activity.xml" value="0.3671875" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/client_vet_detail_activity.xml" value="0.3671875" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="..\:/Users/drago/Desktop/MSA/VetApp/app/src/main/res/layout/fragment_home.xml" value="0.1921875" />
@@ -67,6 +69,8 @@
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/pet_cardview_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/schedule_day_cardview_layout.xml" value="0.41440217391304346" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/schedule_hour_cardview_layout.xml" value="0.3457264957264957" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_add_prescription_activity.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_add_prescription_time_cardview_layout.xml" value="0.4547008547008547" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_cardview_layout.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_chat.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/tqmi_/Desktop/work/MSA/VetApp/app/src/main/res/layout/vet_fragment_profile.xml" value="0.4244791666666667" />

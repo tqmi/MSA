@@ -28,6 +28,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.vetapp.data.datasource.pet.PetDataSource;
 import com.vetapp.data.datasource.user.VetDataSource;
 import com.vetapp.data.models.appointment.Appointment;
 import com.vetapp.data.models.pet.Pet;
@@ -78,6 +79,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
         selectTimeSlot = binding.selectTimeSlot;
         EditText selectDate = binding.editTextDate;
         Button submitBtn = binding.submitBtn;
+        Button goBack = binding.btnReturnToVetList;
         selectVisitType.setEnabled(true);
         selectTimeSlot.setEnabled(false);
         selectDate.setEnabled(true);
@@ -167,6 +169,13 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 appointmentdata.setVisitType((VisitType) selectVisitType.getSelectedItem());
                 appointmentdata.setTimeSlot((Schedule.TimeSlot) selectTimeSlot.getSelectedItem());
 
+                Calendar apptime = Calendar.getInstance();
+                apptime.setTime(appointmentdata.getDate().toDate());
+                apptime.set(Calendar.HOUR_OF_DAY, appointmentdata.getTimeSlot().getStart().getHour());
+                apptime.set(Calendar.MINUTE, appointmentdata.getTimeSlot().getStart().getMinute());
+
+                appointmentdata.setDate(new Timestamp(apptime.getTime()));
+
                 Schedule.TimeSlot nTimeslot = new Schedule.TimeSlot(appointmentdata.getTimeSlot().getStart(), Schedule.TimeSlot.TimeSlotStatus.BUSY, appointmentdata);
 
                 Calendar cal = Calendar.getInstance();
@@ -187,13 +196,28 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 VetDataSource.updateScheduleTimeSlot(cal, model, toDelete, nTimeslot, new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        finish();
+                        if (task.isSuccessful()) {
+                            PetDataSource.addPetAppointment(appointmentdata.getOwnerId(), appointmentdata.getPetId(), appointmentdata, new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task task) {
+                                    finish();
+                                }
+                            });
+                        } else {
+                            Log.d(getTag(), "Error creating appointment: " + task.getException());
+                        }
                     }
                 });
 
             }
         });
 
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -332,4 +356,6 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
         selectPet.setAdapter(selectPetAdapter);
     }
+
+
 }

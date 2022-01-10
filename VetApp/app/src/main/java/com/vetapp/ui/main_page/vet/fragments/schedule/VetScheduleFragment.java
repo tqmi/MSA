@@ -1,6 +1,7 @@
 package com.vetapp.ui.main_page.vet.fragments.schedule;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,12 +22,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.vetapp.R;
+import com.vetapp.data.datasource.pet.PetDataSource;
 import com.vetapp.data.datasource.user.VetDataSource;
 import com.vetapp.data.models.vet.Schedule;
 import com.vetapp.data.models.vet.Vet;
 import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.VetFragmentScheduleBinding;
+import com.vetapp.ui.main_page.vet.activities.addprescription.AddPrescriptionActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +47,7 @@ public class VetScheduleFragment extends Fragment {
     private RecyclerView hourLayout;
     private List<Schedule.TimeSlot> hourData = new ArrayList<>();
     private Vet vet = null;
+    private ListenerRegistration scheduleListener;
 
     private static int[] daycount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private static String[] monthNames = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"};
@@ -120,12 +128,15 @@ public class VetScheduleFragment extends Fragment {
 
         Log.d(getTag(), "date : " + date);
 
-        VetDataSource.getVetShedule(date, vet, new OnCompleteListener<DocumentSnapshot>() {
+        if (scheduleListener != null)
+            scheduleListener.remove();
+
+        scheduleListener = VetDataSource.setChangeListenerSchedule(date, vet, new EventListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null) {
                     Log.d(getTag(), "loaded schedule");
-                    Schedule schedule = task.getResult().toObject(Schedule.class);
+                    Schedule schedule = value.toObject(Schedule.class);
 
                     hourData.clear();
 
@@ -139,7 +150,7 @@ public class VetScheduleFragment extends Fragment {
                     hourLayout.getAdapter().notifyDataSetChanged();
 
                 } else {
-                    Log.d(getTag(), "error loading schedule : " + task.getException());
+                    Log.d(getTag(), "error loading schedule : " + error);
                 }
             }
         });
@@ -188,6 +199,7 @@ public class VetScheduleFragment extends Fragment {
         private List<Day> data;
         public Day selected;
         private ViewHolder selectedViewHolder;
+
 
         public DayAdapter(Context context, List<Day> data) {
             this.context = context;
@@ -270,6 +282,32 @@ public class VetScheduleFragment extends Fragment {
             holder.tvConsultationType.setText(model.getAppointment().getVisitType().getName());
             holder.tvPetName.setText(model.getAppointment().getPetName());
             holder.tvOwnerName.setText(model.getAppointment().getOwnerName());
+            holder.btnAddPrescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), AddPrescriptionActivity.class);
+                    intent.putExtra("ownerID", model.getAppointment().getOwnerId());
+                    intent.putExtra("petID", model.getAppointment().getPetId());
+                    startActivity(intent);
+                }
+            });
+
+            holder.btnDone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar date = Calendar.getInstance();
+
+                    date.set(Calendar.MONTH, ((DayAdapter) dayLayout.getAdapter()).selected.month);
+                    date.set(Calendar.DAY_OF_MONTH, ((DayAdapter) dayLayout.getAdapter()).selected.day);
+                    PetDataSource.deleteAppointmentDone(model.getAppointment().getOwnerId(), model.getAppointment().getPetId(), model.getAppointment(), null);
+                    VetDataSource.markAppointmentDone(date, vet, model, new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            notifyDataSetChanged();
+                        }
+                    });
+                }
+            });
         }
 
         @Override
@@ -280,7 +318,7 @@ public class VetScheduleFragment extends Fragment {
         public class ViewHolder extends RecyclerView.ViewHolder {
             private ConstraintLayout timeLayout, infoLayout;
             private TextView tvStartTime, tvEndTime, tvConsultationType, tvPetName, tvOwnerName;
-            private Button btnDone;
+            private Button btnDone, btnAddPrescription;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -292,6 +330,7 @@ public class VetScheduleFragment extends Fragment {
                 this.tvPetName = itemView.findViewById(R.id.card_sc_hour_pet_name);
                 this.tvOwnerName = itemView.findViewById(R.id.card_sc_hour_owner_name);
                 this.btnDone = itemView.findViewById(R.id.card_sc_hour_done_button);
+                this.btnAddPrescription = itemView.findViewById(R.id.card_sc_hour_add_prescription_button);
             }
         }
     }

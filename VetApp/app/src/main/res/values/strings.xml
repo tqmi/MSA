@@ -29,6 +29,11 @@
     <string name="profile_descr">Profile photo</string>
     <string name="welcomemsg">Welcome, doctor</string>
     <string name="vet_schedule">Your appointments</string>
+    <string name="pet_choice">Choose your pet in need of care</string>
+    <string name="app_choice">What does your pet need?</string>
+    <string name="date_choice">Pick a preferred date from the calendar</string>
+    <string name="time_choice">Choose a timeslot for the appointment</string>
+    <string name="go_back_to_vets">I want a different doctor</string>
     
     <string name="client_menu_pets">Pets</string>
     <string name="client_menu_vets">Vets</string>
