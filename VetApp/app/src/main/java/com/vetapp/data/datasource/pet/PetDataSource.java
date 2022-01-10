@@ -54,6 +54,9 @@ public class PetDataSource {
         usersColRef.document(UserState.getUID()).collection(DBRef.PET_COL).document(id).update("hasPicture", true);
     }
 
+    public static void updatePet(Pet pet, OnCompleteListener callback) {
+        usersColRef.document(UserState.getUID()).collection(DBRef.PET_COL).document(pet.getDocid()).set(pet).addOnCompleteListener(callback);
+    }
 
     //Generic
     public static void addPetPrescription(String userid, String petid, Prescription data, OnCompleteListener callback) {

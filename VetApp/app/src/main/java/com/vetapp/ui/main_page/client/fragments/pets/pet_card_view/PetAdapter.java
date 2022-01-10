@@ -124,7 +124,12 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context.getApplicationContext(), AddPetActivity.class));
+
+                Intent intent = new Intent(context.getApplicationContext(), AddPetActivity.class);
+
+                intent.putExtra("edit", true);
+                intent.putExtra("petID", model.getDocid());
+                context.startActivity(intent);
             }
         });
 

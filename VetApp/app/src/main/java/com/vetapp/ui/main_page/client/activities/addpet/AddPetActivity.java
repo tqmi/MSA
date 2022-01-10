@@ -1,5 +1,7 @@
 package com.vetapp.ui.main_page.client.activities.addpet;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,9 +24,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.vetapp.data.datasource.pet.PetDataSource;
 import com.vetapp.data.models.pet.Pet;
 import com.vetapp.data.models.register.RegisterResult;
+import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.ActivityAddPetBinding;
 
 import java.io.IOException;
@@ -45,7 +49,11 @@ public class AddPetActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         addPetViewModel = new ViewModelProvider(this, new AddPetViewModelFactory()).get(AddPetViewModel.class);
+
         petData = new Pet();
+
+        boolean edit = getIntent().getExtras().getBoolean("edit");
+
 
         EditText name = binding.etName;
         EditText category = binding.etCategory;
@@ -57,11 +65,40 @@ public class AddPetActivity extends AppCompatActivity {
         Button submit = binding.btnSubmit;
         Button goBack = binding.btnGoBack;
 
-        ActivityResultLauncher<String> getContentLauncher =  registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        if (edit) {
+            String id = getIntent().getExtras().getString("petID");
+            PetDataSource.loadUserPet(UserState.getUID(), id, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    Pet inter = task.getResult().toObject(Pet.class);
+                    name.setText(inter.getName());
+                    category.setText(inter.getCategory());
+                    race.setText(inter.getRace());
+                    petData = inter;
+                    PetDataSource.getPetImage(petData, new OnCompleteListener<byte[]>() {
+                        @Override
+                        public void onComplete(@NonNull Task<byte[]> task) {
+                            if (task.isSuccessful()) {
+                                byte[] im = task.getResult();
+
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(im, 0, im.length);
+
+                                petData.setImage(bitmap);
+                                imgProfile.setImageBitmap(petData.getImage());
+                            } else {
+
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        ActivityResultLauncher<String> getContentLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
                 try {
-                    if(result != null){
+                    if (result != null) {
                         ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), result);
                         imgProfile.setImageBitmap(ImageDecoder.decodeBitmap(source));
                     }
@@ -108,22 +145,38 @@ public class AddPetActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PetDataSource.writePet(petData, new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        DocumentReference petDocRef = (DocumentReference) task.getResult();
-                        if(imUri != null)
-                            PetDataSource.writePetImage(imUri, petDocRef.getId(), new OnCompleteListener() {
-                                @Override
-                                public void onComplete(@NonNull Task task) {
-                                    if(task.isSuccessful()){
-                                        PetDataSource.setPetImageTrue(petDocRef.getId());
+                if (edit) {
+                    PetDataSource.updatePet(petData, new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            if (imUri != null)
+                                PetDataSource.writePetImage(imUri, petData.getDocid(), new OnCompleteListener() {
+                                    @Override
+                                    public void onComplete(@NonNull Task task) {
+
                                     }
-                                }
-                            });
-                        finish();
-                    }
-                });
+                                });
+                            finish();
+                        }
+                    });
+                } else {
+                    PetDataSource.writePet(petData, new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            DocumentReference petDocRef = (DocumentReference) task.getResult();
+                            if (imUri != null)
+                                PetDataSource.writePetImage(imUri, petDocRef.getId(), new OnCompleteListener() {
+                                    @Override
+                                    public void onComplete(@NonNull Task task) {
+                                        if (task.isSuccessful()) {
+                                            PetDataSource.setPetImageTrue(petDocRef.getId());
+                                        }
+                                    }
+                                });
+                            finish();
+                        }
+                    });
+                }
             }
         });
 
