@@ -1,6 +1,8 @@
 package com.vetapp.ui.main_page.client.activities.vetdetails;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ public class VetDetailsActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Button goBackbtn = binding.btnDetailsToVetList;
         binding = ClientVetDetailActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -29,6 +32,11 @@ public class VetDetailsActivity extends AppCompatActivity {
 
         textView.setText(model.getName());
 
-
+        goBackbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
