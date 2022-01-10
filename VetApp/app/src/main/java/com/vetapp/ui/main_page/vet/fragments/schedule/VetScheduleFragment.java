@@ -42,7 +42,7 @@ public class VetScheduleFragment extends Fragment {
     private Vet vet = null;
 
     private static int[] daycount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    private static String[] monthNames = {"IAN", "FEB", "MAR", "APR", "MAI", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+    private static String[] monthNames = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"};
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
