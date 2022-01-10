@@ -170,7 +170,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
                 Calendar apptime = Calendar.getInstance();
                 apptime.setTime(appointmentdata.getDate().toDate());
-                apptime.set(Calendar.HOUR, appointmentdata.getTimeSlot().getStart().getHour());
+                apptime.set(Calendar.HOUR_OF_DAY, appointmentdata.getTimeSlot().getStart().getHour());
                 apptime.set(Calendar.MINUTE, appointmentdata.getTimeSlot().getStart().getMinute());
 
                 appointmentdata.setDate(new Timestamp(apptime.getTime()));

@@ -62,10 +62,10 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
                 public int compare(Appointment o1, Appointment o2) {
                     return o1.getDate().compareTo(o2.getDate());
                 }
-            }).findFirst().get();
+            }).findFirst().orElse(null);
 
         if (appointment != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy, hh:mm");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
             holder.tvAppTime.setText(dateFormat.format(appointment.getDate().toDate()));
             holder.tvAppType.setText(appointment.getVisitType().getName());
         } else {
@@ -76,15 +76,17 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
         StringBuilder sb = new StringBuilder();
         if (model.getPrescriptions() != null)
             model.getPrescriptions().stream().forEach((m) -> {
-                sb.append(m.getMedicine().getName());
-                sb.append(" x ");
-                sb.append(m.getQuantity());
-                sb.append(" - ");
-                m.getDailyDose().forEach((tp) -> {
-                    sb.append(tp);
-                    sb.append(" ");
-                });
-                sb.append("\n");
+                if (m.getStartTime().compareTo(Timestamp.now()) < 0 && m.getEndTime().compareTo(Timestamp.now()) > 0) {
+                    sb.append(m.getMedicine().getName());
+                    sb.append(" x ");
+                    sb.append(m.getQuantity());
+                    sb.append(" - ");
+                    m.getDailyDose().forEach((tp) -> {
+                        sb.append(tp);
+                        sb.append(" ");
+                    });
+                    sb.append("\n");
+                }
             });
 
         if (sb.length() > 0) {
