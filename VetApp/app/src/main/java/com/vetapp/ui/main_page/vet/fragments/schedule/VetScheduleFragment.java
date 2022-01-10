@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,7 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.vetapp.R;
+import com.vetapp.data.datasource.pet.PetDataSource;
 import com.vetapp.data.datasource.user.VetDataSource;
 import com.vetapp.data.models.vet.Schedule;
 import com.vetapp.data.models.vet.Vet;
@@ -42,6 +47,7 @@ public class VetScheduleFragment extends Fragment {
     private RecyclerView hourLayout;
     private List<Schedule.TimeSlot> hourData = new ArrayList<>();
     private Vet vet = null;
+    private ListenerRegistration scheduleListener;
 
     private static int[] daycount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private static String[] monthNames = {"IAN", "FEB", "MAR", "APR", "MAI", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
@@ -122,12 +128,15 @@ public class VetScheduleFragment extends Fragment {
 
         Log.d(getTag(), "date : " + date);
 
-        VetDataSource.getVetShedule(date, vet, new OnCompleteListener<DocumentSnapshot>() {
+        if (scheduleListener != null)
+            scheduleListener.remove();
+
+        scheduleListener = VetDataSource.setChangeListenerSchedule(date, vet, new EventListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null) {
                     Log.d(getTag(), "loaded schedule");
-                    Schedule schedule = task.getResult().toObject(Schedule.class);
+                    Schedule schedule = value.toObject(Schedule.class);
 
                     hourData.clear();
 
@@ -141,7 +150,7 @@ public class VetScheduleFragment extends Fragment {
                     hourLayout.getAdapter().notifyDataSetChanged();
 
                 } else {
-                    Log.d(getTag(), "error loading schedule : " + task.getException());
+                    Log.d(getTag(), "error loading schedule : " + error);
                 }
             }
         });
@@ -190,6 +199,7 @@ public class VetScheduleFragment extends Fragment {
         private List<Day> data;
         public Day selected;
         private ViewHolder selectedViewHolder;
+
 
         public DayAdapter(Context context, List<Day> data) {
             this.context = context;
@@ -285,7 +295,17 @@ public class VetScheduleFragment extends Fragment {
             holder.btnDone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Calendar date = Calendar.getInstance();
 
+                    date.set(Calendar.MONTH, ((DayAdapter) dayLayout.getAdapter()).selected.month);
+                    date.set(Calendar.DAY_OF_MONTH, ((DayAdapter) dayLayout.getAdapter()).selected.day);
+                    PetDataSource.deleteAppointmentDone(model.getAppointment().getOwnerId(), model.getAppointment().getPetId(), model.getAppointment(), null);
+                    VetDataSource.markAppointmentDone(date, vet, model, new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            notifyDataSetChanged();
+                        }
+                    });
                 }
             });
         }

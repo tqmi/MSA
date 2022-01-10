@@ -103,6 +103,9 @@ public class PetDataSource {
         imref.delete();
     }
 
+    public static void deleteAppointmentDone(String userid, String petid, Appointment data, OnCompleteListener callback) {
+        usersColRef.document(userid).collection(DBRef.PET_COL).document(petid).update("appointments", FieldValue.arrayRemove(data)).addOnCompleteListener(callback);
+    }
 
 
 }
