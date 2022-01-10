@@ -78,6 +78,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
         selectTimeSlot = binding.selectTimeSlot;
         EditText selectDate = binding.editTextDate;
         Button submitBtn = binding.submitBtn;
+        Button goBack = binding.btnReturnToVetList;
         selectVisitType.setEnabled(true);
         selectTimeSlot.setEnabled(false);
         selectDate.setEnabled(true);
@@ -194,6 +195,12 @@ public class NewAppointmentActivity extends AppCompatActivity {
             }
         });
 
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -332,4 +339,6 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
         selectPet.setAdapter(selectPetAdapter);
     }
+
+
 }
