@@ -72,6 +72,26 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
             holder.tvAppType.setText("No appointment");
             holder.tvAppTime.setText("");
         }
+
+        StringBuilder sb = new StringBuilder();
+        if (model.getPrescriptions() != null)
+            model.getPrescriptions().stream().forEach((m) -> {
+                sb.append(m.getMedicine().getName());
+                sb.append(" x ");
+                sb.append(m.getQuantity());
+                sb.append(" - ");
+                m.getDailyDose().forEach((tp) -> {
+                    sb.append(tp);
+                    sb.append(" ");
+                });
+                sb.append("\n");
+            });
+
+        if (sb.length() > 0) {
+            holder.tvMedication.setText(sb.toString());
+        } else
+            holder.tvMedication.setText("Healthy");
+
         holder.tvName.setText(model.getName());
         holder.tvCategory.setText(model.getCategory());
         holder.tvRace.setText(model.getRace());
@@ -116,7 +136,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {
-        private TextView tvName, tvCategory, tvRace, tvAppTime, tvAppType;
+        private TextView tvName, tvCategory, tvRace, tvAppTime, tvAppType, tvMedication;
         private ImageView ivImage;
         private Button btnDelete;
         private Button btnEdit;
@@ -131,6 +151,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.Viewholder> {
             btnEdit = itemView.findViewById(R.id.card_pet_edit_btn);
             tvAppTime = itemView.findViewById(R.id.card_pet_appointment_time);
             tvAppType = itemView.findViewById(R.id.card_pet_appointment_type);
+            tvMedication = itemView.findViewById(R.id.card_pet_health_status);
         }
     }
 }

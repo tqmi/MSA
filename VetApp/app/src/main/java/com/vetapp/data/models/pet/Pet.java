@@ -6,6 +6,7 @@ import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.vetapp.data.models.appointment.Appointment;
+import com.vetapp.data.models.medication.Prescription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Pet {
     private String category;
     private String race;
     private List<Appointment> appointments;
+    private List<Prescription> prescriptions;
     @DocumentId
     private String docid;
     @Exclude private Bitmap image;
@@ -28,6 +30,7 @@ public class Pet {
         this.category = category;
         this.race = race;
         appointments = new ArrayList<>();
+        prescriptions = new ArrayList<>();
     }
 
     public List<Appointment> getAppointments() {
@@ -36,6 +39,14 @@ public class Pet {
 
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public List<Prescription> getPrescriptions() {
+        return prescriptions;
+    }
+
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
     }
 
     public String getName() {
