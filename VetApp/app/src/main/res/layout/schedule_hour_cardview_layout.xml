@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/card_sc_hour_time_layout"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="false"
@@ -55,12 +55,26 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="1dp"
+                android:rotation="90"
+                app:layout_constraintBottom_toTopOf="@+id/card_sc_hour_end_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_sc_hour_start_time"
+                app:srcCompat="@android:drawable/ic_media_play"
+                app:tint="#000000" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/card_sc_hour_info_layout"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
@@ -103,15 +117,27 @@
 
             <Button
                 android:id="@+id/card_sc_hour_done_button"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="4dp"
                 android:text="DONE"
                 android:textSize="12sp"
                 app:iconPadding="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/card_sc_hour_add_prescription_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/card_sc_hour_add_prescription_button"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Add prescription"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

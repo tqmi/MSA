@@ -86,6 +86,14 @@ public class Schedule {
             this.minute = minute;
         }
 
+        public void setHour(int hour) {
+            this.hour = hour;
+        }
+
+        public void setMinute(int minute) {
+            this.minute = minute;
+        }
+
         public int getHour() {
             return hour;
         }
@@ -123,7 +131,17 @@ public class Schedule {
 
         @Override
         public String toString() {
-            return hour + ":" + minute;
+            StringBuilder sb = new StringBuilder();
+
+            if (hour < 10)
+                sb.append("0");
+            sb.append(hour);
+            sb.append(":");
+            if (minute < 10)
+                sb.append("0");
+            sb.append(minute);
+
+            return sb.toString();
         }
     }
 

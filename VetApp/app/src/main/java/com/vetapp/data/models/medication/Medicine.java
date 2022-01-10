@@ -20,4 +20,9 @@ public class Medicine {
     public String getProspect() {
         return prospect;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

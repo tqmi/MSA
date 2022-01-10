@@ -1,6 +1,7 @@
 package com.vetapp.ui.main_page.vet.fragments.schedule;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.vetapp.data.models.vet.Schedule;
 import com.vetapp.data.models.vet.Vet;
 import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.VetFragmentScheduleBinding;
+import com.vetapp.ui.main_page.vet.activities.addprescription.AddPrescriptionActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -270,6 +272,22 @@ public class VetScheduleFragment extends Fragment {
             holder.tvConsultationType.setText(model.getAppointment().getVisitType().getName());
             holder.tvPetName.setText(model.getAppointment().getPetName());
             holder.tvOwnerName.setText(model.getAppointment().getOwnerName());
+            holder.btnAddPrescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), AddPrescriptionActivity.class);
+                    intent.putExtra("ownerID", model.getAppointment().getOwnerId());
+                    intent.putExtra("petID", model.getAppointment().getPetId());
+                    startActivity(intent);
+                }
+            });
+
+            holder.btnDone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
 
         @Override
@@ -280,7 +298,7 @@ public class VetScheduleFragment extends Fragment {
         public class ViewHolder extends RecyclerView.ViewHolder {
             private ConstraintLayout timeLayout, infoLayout;
             private TextView tvStartTime, tvEndTime, tvConsultationType, tvPetName, tvOwnerName;
-            private Button btnDone;
+            private Button btnDone, btnAddPrescription;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -292,6 +310,7 @@ public class VetScheduleFragment extends Fragment {
                 this.tvPetName = itemView.findViewById(R.id.card_sc_hour_pet_name);
                 this.tvOwnerName = itemView.findViewById(R.id.card_sc_hour_owner_name);
                 this.btnDone = itemView.findViewById(R.id.card_sc_hour_done_button);
+                this.btnAddPrescription = itemView.findViewById(R.id.card_sc_hour_add_prescription_button);
             }
         }
     }

@@ -14,6 +14,14 @@ public class Prescription {
     private Timestamp startTime;
     private List<Schedule.TimePoint> dailyDose;
 
+    public Prescription(Medicine medicine, int quantity, Timestamp endTime, Timestamp startTime, List<Schedule.TimePoint> dailyDose) {
+        this.medicine = medicine;
+        this.quantity = quantity;
+        this.endTime = endTime;
+        this.startTime = startTime;
+        this.dailyDose = dailyDose;
+    }
+
     public Prescription() {
     }
 

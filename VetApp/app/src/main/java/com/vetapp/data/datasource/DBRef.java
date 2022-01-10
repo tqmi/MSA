@@ -5,5 +5,6 @@ public class DBRef {
     public static final String PET_COL = "pets";
     public static final String SCHEDULE_COL = "schedules";
     public static final String VISITTYPE_COL = "services";
+    public static final String MEDICINE_COL = "Medications";
 
 }

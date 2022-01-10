@@ -14,6 +14,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.vetapp.data.datasource.DBRef;
 import com.vetapp.data.models.appointment.Appointment;
+import com.vetapp.data.models.medication.Prescription;
 import com.vetapp.data.models.pet.Pet;
 import com.vetapp.data.persistent.user.UserState;
 
@@ -55,6 +56,10 @@ public class PetDataSource {
 
 
     //Generic
+    public static void addPetPrescription(String userid, String petid, Prescription data, OnCompleteListener callback) {
+        usersColRef.document(userid).collection(DBRef.PET_COL).document(petid).update("prescriptions", FieldValue.arrayUnion(data)).addOnCompleteListener(callback);
+    }
+
     public static void addPetAppointment(String userid, String petid, Appointment data, OnCompleteListener callback) {
         usersColRef.document(userid).collection(DBRef.PET_COL).document(petid).update("appointments", FieldValue.arrayUnion(data)).addOnCompleteListener(callback);
     }
