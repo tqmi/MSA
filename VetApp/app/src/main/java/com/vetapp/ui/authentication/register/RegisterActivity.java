@@ -50,7 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
         final RadioButton rbVet = binding.rgVet;
         final RadioButton rbClient = binding.rgClient;
         final Button goBackButton = binding.registerToLogin;
-
+        final EditText etClinic = binding.etClinicName;
+        final EditText etAddress = binding.etAddress;
 
 
         registerViewModel.getRegisterFormState().observe(this, new Observer<RegisterFormState>() {
@@ -104,6 +105,8 @@ public class RegisterActivity extends AppCompatActivity {
                 registerData.setFirstName(etFirstName.getText().toString());
                 registerData.setLastName(etLastName.getText().toString());
                 registerData.setPhone(etPhone.getText().toString());
+                registerData.setClinic(etClinic.getText().toString());
+                registerData.setAddress(etAddress.getText().toString());
                 registerViewModel.registerDataChanged(registerData);
             }
         };
@@ -112,23 +115,29 @@ public class RegisterActivity extends AppCompatActivity {
         etFirstName.addTextChangedListener(afterTextChangedListener);
         etLastName.addTextChangedListener(afterTextChangedListener);
         etPhone.addTextChangedListener(afterTextChangedListener);
+        etAddress.addTextChangedListener(afterTextChangedListener);
+        etClinic.addTextChangedListener(afterTextChangedListener);
 
 
         rbClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(rbClient.isChecked()){
+                if (rbClient.isChecked()) {
                     registerData.setType(UserType.CLIENT);
                     registerViewModel.registerDataChanged(registerData);
+                    etClinic.setVisibility(View.GONE);
+                    etAddress.setVisibility(View.GONE);
                 }
             }
         });
         rbVet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(rbVet.isChecked()){
+                if(rbVet.isChecked()) {
                     registerData.setType(UserType.VET);
                     registerViewModel.registerDataChanged(registerData);
+                    etClinic.setVisibility(View.VISIBLE);
+                    etAddress.setVisibility(View.VISIBLE);
                 }
             }
         });

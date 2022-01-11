@@ -16,10 +16,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.vetapp.R;
 import com.vetapp.data.datasource.register.RegisterDataSource;
 import com.vetapp.data.datasource.user.UserDataSource;
+import com.vetapp.data.datasource.user.VetDataSource;
 import com.vetapp.data.models.register.RegisterData;
 import com.vetapp.data.models.register.RegisterResult;
 import com.vetapp.data.models.user.User;
 import com.vetapp.data.models.user.UserData;
+import com.vetapp.data.models.user.UserType;
 import com.vetapp.ui.authentication.register.RegisterFormState;
 
 public class RegisterHandler {
@@ -54,8 +56,26 @@ public class RegisterHandler {
                         UserDataSource.setUser(new User(user, getUserData(data)), new OnCompleteListener() {
                             @Override
                             public void onComplete(@NonNull Task task) {
-                                FirebaseAuth.getInstance().signOut();
-                                result.setValue(new RegisterResult(true));
+
+                                if (data.getType() == UserType.VET) {
+
+                                    VetDataSource.updateField("clinicName", data.getClinic(), new OnCompleteListener() {
+                                        @Override
+                                        public void onComplete(@NonNull Task task) {
+                                            VetDataSource.updateField("address", data.getAddress(), new OnCompleteListener() {
+                                                @Override
+                                                public void onComplete(@NonNull Task task) {
+                                                    FirebaseAuth.getInstance().signOut();
+                                                    result.setValue(new RegisterResult(true));
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                } else {
+                                    FirebaseAuth.getInstance().signOut();
+                                    result.setValue(new RegisterResult(true));
+                                }
                             }
                         });
                     } else {

@@ -33,108 +33,129 @@
             android:textSize="36dp" />
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/login_shape_bk"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:id="@+id/userTypeText"
-            android:layout_width="274dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/userTypeText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <RadioGroup
-            android:id="@+id/rg_choseType"
-            android:layout_width="wrap_content"
-            android:layout_height="116dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userTypeText">
-
-            <RadioButton
-                android:id="@+id/rg_vet"
-                android:layout_width="wrap_content"
-                android:layout_height="58dp"
-                android:text="@string/radioGroupVetChoice" />
-
-            <RadioButton
-                android:id="@+id/rg_client"
-                android:layout_width="109dp"
-                android:layout_height="58dp"
-                android:text="@string/radioGroupClientChoice" />
-        </RadioGroup>
-
-        <EditText
-            android:id="@+id/et_firstName"
-            android:layout_width="277dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="44dp"
-            android:autofillHints="First Name"
-            android:ems="10"
-            android:hint="First Name"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/rg_choseType"
-            app:layout_constraintStart_toStartOf="@+id/rg_choseType"
-            app:layout_constraintTop_toBottomOf="@+id/rg_choseType" />
-
-        <EditText
-            android:id="@+id/et_lastName"
-            android:layout_width="277dp"
-            android:layout_height="50dp"
-            android:autofillHints="Last Name"
-            android:ems="10"
-            android:hint="Last Name"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/et_firstName"
-            app:layout_constraintStart_toStartOf="@+id/et_firstName"
-            app:layout_constraintTop_toBottomOf="@+id/et_firstName" />
-
-        <EditText
-            android:id="@+id/et_phone"
-            android:layout_width="276dp"
-            android:layout_height="48dp"
             android:layout_marginTop="40dp"
-            android:autofillHints="Phone Number"
-            android:ems="10"
-            android:hint="Phone Number"
-            android:inputType="phone"
-            app:layout_constraintEnd_toEndOf="@+id/et_lastName"
-            app:layout_constraintStart_toStartOf="@+id/et_lastName"
-            app:layout_constraintTop_toBottomOf="@+id/et_lastName" />
+            android:background="@drawable/login_shape_bk"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin">
 
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="277dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="38dp"
-            android:autofillHints="Username"
-            android:ems="10"
-            android:hint="Username"
-            android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toEndOf="@+id/et_phone"
-            app:layout_constraintStart_toStartOf="@+id/et_phone"
-            app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+            <TextView
+                android:id="@+id/userTypeText"
+                android:layout_width="274dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/userTypeText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="276dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="28dp"
-            android:autofillHints="Password"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="@+id/et_email"
-            app:layout_constraintStart_toStartOf="@+id/et_email"
-            app:layout_constraintTop_toBottomOf="@+id/et_email" />
+            <RadioGroup
+                android:id="@+id/rg_choseType"
+                android:layout_width="wrap_content"
+                android:layout_height="116dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userTypeText">
+
+                <RadioButton
+                    android:id="@+id/rg_vet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="58dp"
+                    android:text="@string/radioGroupVetChoice" />
+
+                <RadioButton
+                    android:id="@+id/rg_client"
+                    android:layout_width="109dp"
+                    android:layout_height="58dp"
+                    android:text="@string/radioGroupClientChoice" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/et_firstName"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="44dp"
+                android:autofillHints="First Name"
+                android:ems="10"
+                android:hint="First Name"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/rg_choseType"
+                app:layout_constraintStart_toStartOf="@+id/rg_choseType"
+                app:layout_constraintTop_toBottomOf="@+id/rg_choseType" />
+
+            <EditText
+                android:id="@+id/et_lastName"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:autofillHints="Last Name"
+                android:ems="10"
+                android:hint="Last Name"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/et_firstName"
+                app:layout_constraintStart_toStartOf="@+id/et_firstName"
+                app:layout_constraintTop_toBottomOf="@+id/et_firstName" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:autofillHints="Phone Number"
+                android:ems="10"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                app:layout_constraintEnd_toEndOf="@+id/et_lastName"
+                app:layout_constraintStart_toStartOf="@+id/et_lastName"
+                app:layout_constraintTop_toBottomOf="@+id/et_lastName" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="38dp"
+                android:autofillHints="Username"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="@+id/et_phone"
+                app:layout_constraintStart_toStartOf="@+id/et_phone"
+                app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="28dp"
+                android:autofillHints="Password"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/et_email"
+                app:layout_constraintStart_toStartOf="@+id/et_email"
+                app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+            <EditText
+                android:id="@+id/et_clinic_name"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="Clinic Name"
+                android:inputType="textPersonName"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="Adress"
+                android:inputType="textPersonName"
+                android:singleLine="false"
+                android:visibility="gone" />
 
 
-    </LinearLayout>
+        </LinearLayout>
         <Button
             android:id="@+id/register"
             android:layout_width="wrap_content"

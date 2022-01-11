@@ -10,6 +10,24 @@ public class RegisterData {
     private String lastName;
     private UserType type;
     private String phone;
+    private String clinic;
+    private String address;
+
+    public String getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(String clinic) {
+        this.clinic = clinic;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getEmail() {
         return email;
