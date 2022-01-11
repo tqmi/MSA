@@ -65,6 +65,7 @@ public class VetAdapter extends RecyclerView.Adapter<com.vetapp.ui.main_page.cli
                         switch (item.getItemId()) {
                             case R.id.vet_card_pm_details:
                                 intent = new Intent(context, VetDetailsActivity.class);
+
                                 intent.putExtra("model", model);
                                 context.startActivity(intent);
                                 break;
@@ -95,8 +96,7 @@ public class VetAdapter extends RecyclerView.Adapter<com.vetapp.ui.main_page.cli
 
                     Bitmap bitmap = BitmapFactory.decodeByteArray(im, 0, im.length);
 
-                    model.setProfilePic(bitmap);
-                    holder.ivImage.setImageBitmap(model.getProfilePic());
+                    holder.ivImage.setImageBitmap(bitmap);
                 } else {
                     holder.ivImage.setImageBitmap(null);
                 }
