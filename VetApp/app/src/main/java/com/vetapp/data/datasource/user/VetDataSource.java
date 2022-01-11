@@ -37,11 +37,11 @@ public class VetDataSource {
         return usersColRef.whereEqualTo("type", "VET").addSnapshotListener(callback);
     }
 
-    public static ListenerRegistration setChangeListenerSchedule(Calendar date, Vet vet, EventListener<DocumentSnapshot> callback) {
+    public static ListenerRegistration setChangeListenerSchedule(Calendar date, String vetID, EventListener<DocumentSnapshot> callback) {
         StringBuilder date_string = new StringBuilder();
         date_string.append(date.get(Calendar.YEAR)).append(date.get(Calendar.MONTH)).append(date.get(Calendar.DAY_OF_MONTH));
 
-        return usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).addSnapshotListener(callback);
+        return usersColRef.document(vetID).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).addSnapshotListener(callback);
     }
 
     public static ListenerRegistration setChangeListenerVisitTypes(Vet vet, EventListener<QuerySnapshot> callback) {
@@ -59,11 +59,11 @@ public class VetDataSource {
         imref.getBytes(ONE_MEGABYTE).addOnCompleteListener(callback);
     }
 
-    public static void getVetShedule(Calendar date, Vet vet, OnCompleteListener<DocumentSnapshot> callback) {
+    public static void getVetShedule(Calendar date, String vetID, OnCompleteListener<DocumentSnapshot> callback) {
         StringBuilder date_string = new StringBuilder();
         date_string.append(date.get(Calendar.YEAR)).append(date.get(Calendar.MONTH)).append(date.get(Calendar.DAY_OF_MONTH));
 
-        usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).get().addOnCompleteListener(callback);
+        usersColRef.document(vetID).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).get().addOnCompleteListener(callback);
     }
 
     public static void addVetScheduleTemplate(String vetid, OnCompleteListener callback) {

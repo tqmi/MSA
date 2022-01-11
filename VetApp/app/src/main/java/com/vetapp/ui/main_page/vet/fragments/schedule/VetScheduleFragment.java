@@ -131,7 +131,7 @@ public class VetScheduleFragment extends Fragment {
         if (scheduleListener != null)
             scheduleListener.remove();
 
-        scheduleListener = VetDataSource.setChangeListenerSchedule(date, vet, new EventListener<DocumentSnapshot>() {
+        scheduleListener = VetDataSource.setChangeListenerSchedule(date, vet.getDocid(), new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error == null) {

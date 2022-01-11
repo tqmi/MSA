@@ -260,7 +260,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
         if (selectTimeSlotListener != null)
             selectTimeSlotListener.remove();
 
-        selectTimeSlotListener = VetDataSource.setChangeListenerSchedule(date, vet, new EventListener<DocumentSnapshot>() {
+        selectTimeSlotListener = VetDataSource.setChangeListenerSchedule(date, vet.getDocid(), new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {

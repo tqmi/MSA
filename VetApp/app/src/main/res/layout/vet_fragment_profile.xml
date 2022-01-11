@@ -10,7 +10,7 @@
         android:id="@+id/textWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text="@string/welcomemsg"
         android:textColor="@color/black"
         android:textSize="36sp"
@@ -25,16 +25,16 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:contentDescription="@string/profile_descr"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textWelcome"
         app:srcCompat="@drawable/avatar"
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/vet_first_name"
+        android:id="@+id/vet_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -45,44 +45,36 @@
         app:layout_constraintTop_toTopOf="@+id/vet_avatar" />
 
     <TextView
-        android:id="@+id/vet_last_name"
+        android:id="@+id/vet_clinic_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:text="Last Name"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/vet_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/vet_first_name" />
-
-    <TextView
-        android:id="@+id/vet_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:text="Username"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@+id/vet_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/vet_last_name" />
+        android:text="ClinicName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/vet_name"
+        app:layout_constraintTop_toBottomOf="@+id/vet_name" />
 
     <TextView
         android:id="@+id/vet_address"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        android:singleLine="false"
         android:text="Clinic Address No. 1E, floor 3, Clinic, Address CA"
-        app:layout_constraintStart_toStartOf="@+id/vet_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/vet_avatar" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/vet_clinic_name"
+        app:layout_constraintTop_toBottomOf="@+id/vet_clinic_name" />
 
     <TextView
         android:id="@+id/text_rating_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="Your current rating"
-        app:layout_constraintStart_toStartOf="@+id/vet_address"
-        app:layout_constraintTop_toBottomOf="@+id/vet_address" />
+        app:layout_constraintStart_toStartOf="@+id/vet_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/vet_avatar" />
 
     <RatingBar
         android:id="@+id/vet_rating"
@@ -111,5 +103,41 @@
         android:indeterminate="false"
         app:layout_constraintStart_toStartOf="@+id/text_progress_desc"
         app:layout_constraintTop_toBottomOf="@+id/text_progress_desc" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vet_schedule_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_progress_desc" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clinic"
+        app:layout_constraintBottom_toTopOf="@+id/vet_clinic_name"
+        app:layout_constraintStart_toStartOf="@+id/vet_clinic_name" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        app:layout_constraintBottom_toTopOf="@+id/vet_address"
+        app:layout_constraintStart_toStartOf="@+id/vet_address" />
+
+    <TextView
+        android:id="@+id/vet_free_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Schedule empty, you are free!"
+        app:layout_constraintStart_toStartOf="@+id/text_progress_desc"
+        app:layout_constraintTop_toTopOf="@+id/vet_schedule_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

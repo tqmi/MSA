@@ -36,7 +36,7 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
-        android:id="@+id/vet_first_name"
+        android:id="@+id/vet_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -55,10 +55,10 @@
         android:text="Last Name"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/vet_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/vet_first_name" />
+        app:layout_constraintTop_toBottomOf="@+id/vet_name" />
 
     <TextView
-        android:id="@+id/vet_username"
+        android:id="@+id/vet_clinic_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"

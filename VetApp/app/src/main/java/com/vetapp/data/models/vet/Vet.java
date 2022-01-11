@@ -29,6 +29,24 @@ public class Vet implements Parcelable {
     private String firstName;
     private String lastName;
     private String phone;
+    private float rating;
+
+    protected Vet(Parcel in) {
+        docid = in.readString();
+        clinicName = in.readString();
+        address = in.readString();
+        email = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        phone = in.readString();
+        rating = in.readFloat();
+        profilePic = in.readParcelable(Bitmap.class.getClassLoader());
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
     @DocumentId
     private String docid;
 
@@ -39,15 +57,8 @@ public class Vet implements Parcelable {
     @Exclude
     private Bitmap profilePic;
 
-    protected Vet(Parcel in) {
-        docid = in.readString();
-        clinicName = in.readString();
-        address = in.readString();
-        email = in.readString();
-        firstName = in.readString();
-        lastName = in.readString();
-        phone = in.readString();
-        profilePic = in.readParcelable(Bitmap.class.getClassLoader());
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     @Exclude
@@ -105,6 +116,7 @@ public class Vet implements Parcelable {
         dest.writeString(firstName);
         dest.writeString(lastName);
         dest.writeString(phone);
+        dest.writeFloat(rating);
         dest.writeParcelable(profilePic, flags);
     }
 }
