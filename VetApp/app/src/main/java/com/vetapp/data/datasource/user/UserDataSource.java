@@ -7,16 +7,21 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.vetapp.data.datasource.DBRef;
 import com.vetapp.data.models.user.User;
 import com.vetapp.data.models.user.UserType;
+import com.vetapp.data.persistent.user.UserState;
 
 public class UserDataSource {
 
+    private static final long ONE_MEGABYTE = 1024 * 1024;
     private static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private static CollectionReference usersColRef = firestore.collection(DBRef.USER_COL);
 
     public static void loadUser(FirebaseUser user, OnCompleteListener<DocumentSnapshot> callback){
 
@@ -41,6 +46,17 @@ public class UserDataSource {
         StorageReference imref = ref.child(userid).child("profile.png");
 
         imref.putFile(imuri).addOnCompleteListener(callback);
+    }
+
+    public static void getProfilePicture(String uid, OnCompleteListener<byte[]> callback) {
+        StorageReference ref = FirebaseStorage.getInstance().getReference();
+        StorageReference imref = ref.child(uid).child("profile.png");
+
+        imref.getBytes(ONE_MEGABYTE).addOnCompleteListener(callback);
+    }
+
+    public static void updateField(String field, String val, OnCompleteListener callback) {
+        usersColRef.document(UserState.getUID()).update(field, val).addOnCompleteListener(callback);
     }
 
 

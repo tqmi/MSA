@@ -39,7 +39,7 @@ public class UserData {
 
     @Exclude
     public String getFullName() {
-        return firstName + lastName;
+        return firstName + " " + lastName;
     }
 
     public String getEmail() {
@@ -66,8 +66,15 @@ public class UserData {
         this.pets = pets;
     }
 
-    public void addPet(Pet pet){
+    public void addPet(Pet pet) {
         pets.add(pet);
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
