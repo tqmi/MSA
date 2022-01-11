@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="70dp"
         android:contentDescription="@string/profile_descr"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
