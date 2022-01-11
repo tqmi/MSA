@@ -41,6 +41,7 @@ public class AddPetActivity extends AppCompatActivity {
     private Pet petData;
     private Uri imUri = null;
 
+    private boolean edit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,9 @@ public class AddPetActivity extends AppCompatActivity {
 
         petData = new Pet();
 
-        boolean edit = getIntent().getExtras().getBoolean("edit");
+
+        if (getIntent().getExtras() != null)
+            edit = getIntent().getExtras().getBoolean("edit");
 
 
         EditText name = binding.etName;
