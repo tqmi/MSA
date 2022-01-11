@@ -20,6 +20,7 @@ import com.google.firebase.storage.StorageReference;
 import com.vetapp.data.datasource.DBRef;
 import com.vetapp.data.models.vet.Schedule;
 import com.vetapp.data.models.vet.Vet;
+import com.vetapp.data.persistent.user.UserState;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -121,6 +122,10 @@ public class VetDataSource {
                 usersColRef.document(vet.getDocid()).collection(DBRef.SCHEDULE_COL).document(date_string.toString()).update("timeSlots", FieldValue.arrayUnion(nt)).addOnCompleteListener(callback);
             }
         });
+    }
+
+    public static void updateField(String field, String val, OnCompleteListener callback) {
+        usersColRef.document(UserState.getUID()).update(field, val).addOnCompleteListener(callback);
     }
 
 }

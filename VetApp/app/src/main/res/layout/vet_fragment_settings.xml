@@ -6,20 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".ui.main_page.client.fragments.settings.ClientSettingsFragment">
 
+    <ImageButton
+        android:id="@+id/vet_clinic_edit_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:contentDescription="Edit address button"
+        android:src="@android:drawable/ic_menu_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/vet_clinic_name"
+        app:layout_constraintEnd_toStartOf="@+id/vet_clinic_name"
+        app:layout_constraintTop_toTopOf="@+id/vet_clinic_name" />
+
+    <ImageButton
+        android:id="@+id/vet_name_edit_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:contentDescription="Edit address button"
+        android:src="@android:drawable/ic_menu_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/vet_name"
+        app:layout_constraintEnd_toStartOf="@+id/vet_name"
+        app:layout_constraintTop_toTopOf="@+id/vet_name" />
+
     <ImageView
         android:id="@+id/vet_avatar"
-        android:layout_width="134dp"
-        android:layout_height="157dp"
+        android:layout_width="135dp"
+        android:layout_height="160dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="70dp"
-        android:scaleType="centerInside"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/profile_descr"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/avatar"
-        tools:src="@tools:sample/avatars"
-        android:contentDescription="@string/profile_descr" />
+        tools:src="@tools:sample/avatars" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_vet_change_avatar"
@@ -39,64 +59,65 @@
         android:id="@+id/vet_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="First Name"
-        android:textSize="25sp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/vet_avatar"
-        app:layout_constraintTop_toTopOf="@+id/vet_avatar" />
-
-    <TextView
-        android:id="@+id/vet_last_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:text="Last Name"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/vet_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/vet_name" />
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_vet_change_avatar" />
 
     <TextView
         android:id="@+id/vet_clinic_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:text="Username"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@+id/vet_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/vet_last_name" />
+        android:layout_marginTop="30dp"
+        android:text="Clinic name"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/vet_name"
+        app:layout_constraintTop_toBottomOf="@+id/vet_name" />
 
     <TextView
         android:id="@+id/address_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Your clinic's address"
-        app:layout_constraintStart_toStartOf="@+id/vet_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/btn_vet_change_avatar" />
+        android:text="Adress"
+        app:layout_constraintBottom_toTopOf="@+id/vet_address"
+        app:layout_constraintStart_toStartOf="@+id/vet_address" />
 
     <ImageButton
         android:id="@+id/vet_address_edit_btn"
-        android:layout_width="34dp"
-        android:layout_height="31dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:contentDescription="Edit address button"
         android:src="@android:drawable/ic_menu_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/address_desc"
-        app:layout_constraintStart_toEndOf="@+id/address_desc"
-        app:layout_constraintTop_toTopOf="@+id/address_desc" />
+        app:layout_constraintBottom_toBottomOf="@+id/vet_address"
+        app:layout_constraintEnd_toStartOf="@+id/vet_address"
+        app:layout_constraintTop_toTopOf="@+id/vet_address" />
+
+    <ImageButton
+        android:id="@+id/vet_phone_edit_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:contentDescription="Edit address button"
+        android:src="@android:drawable/ic_menu_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/vet_phone"
+        app:layout_constraintEnd_toStartOf="@+id/vet_phone"
+        app:layout_constraintTop_toTopOf="@+id/vet_phone" />
 
     <TextView
         android:id="@+id/vet_address"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
         android:text="Clinic Address No. 1E, floor 3, Clinic, Address CA"
         android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/address_desc"
-        app:layout_constraintTop_toBottomOf="@+id/vet_address_edit_btn" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vet_clinic_name"
+        app:layout_constraintTop_toBottomOf="@+id/vet_clinic_name" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -124,5 +145,39 @@
             app:layout_constraintVertical_bias="0.52" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clinic"
+        app:layout_constraintBottom_toTopOf="@+id/vet_clinic_name"
+        app:layout_constraintStart_toStartOf="@+id/vet_clinic_name" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone"
+        app:layout_constraintBottom_toTopOf="@+id/vet_phone"
+        app:layout_constraintStart_toStartOf="@+id/vet_phone" />
+
+    <TextView
+        android:id="@+id/vet_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="0722222222"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/vet_address"
+        app:layout_constraintTop_toBottomOf="@+id/vet_address" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/vet_name"
+        app:layout_constraintStart_toStartOf="@+id/vet_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
