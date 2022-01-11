@@ -19,7 +19,7 @@ import com.vetapp.data.persistent.user.UserState;
 
 public class UserDataSource {
 
-    private static final long ONE_MEGABYTE = 1024 * 1024;
+    private static final long ONE_MEGABYTE = 1024 * 1024 * 10;
     private static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private static CollectionReference usersColRef = firestore.collection(DBRef.USER_COL);
 
