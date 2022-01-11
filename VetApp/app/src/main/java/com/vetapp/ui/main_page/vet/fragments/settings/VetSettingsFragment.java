@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -16,6 +18,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,16 +29,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.vetapp.business.login.LoginHandler;
+import com.vetapp.data.datasource.user.UserDataSource;
 import com.vetapp.data.datasource.user.VetDataSource;
 import com.vetapp.data.models.vet.Vet;
 import com.vetapp.data.persistent.user.UserState;
 import com.vetapp.databinding.VetFragmentSettingsBinding;
+
+import java.io.IOException;
 
 public class VetSettingsFragment extends Fragment {
 
     private VetsettingsViewModel notificationsViewModel;
     private VetFragmentSettingsBinding binding;
     private Vet vet;
+    private Uri imUri = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +65,8 @@ public class VetSettingsFragment extends Fragment {
         bPhone = binding.vetPhoneEditBtn;
 
         ImageView profPic = binding.vetAvatar;
+
+        Button chgPic = binding.btnVetChangeAvatar;
 
         VetDataSource.getVetProfile(UserState.getUID(), new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -114,6 +125,32 @@ public class VetSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getInput(tvPhone, "phone");
+            }
+        });
+
+        ActivityResultLauncher<String> getContentLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+                if (result != null) {
+                    UserDataSource.setUserProfilePicture(UserState.getUID(), result, new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            ImageDecoder.Source source = ImageDecoder.createSource(getContext().getContentResolver(), result);
+                            try {
+                                profPic.setImageBitmap(ImageDecoder.decodeBitmap(source));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        chgPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContentLauncher.launch("image/*");
             }
         });
 
